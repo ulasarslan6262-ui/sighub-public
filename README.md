@@ -1,6 +1,6 @@
 # Sighub
 
-Sighub keeps renewal follow-up trustworthy inside HubSpot.
+Sighub finds the HubSpot accounts that need action before missed follow-up becomes lost revenue.
 
 It watches renewal and engagement risk signals, creates one clear HubSpot task when action is needed, and closes the task automatically when the risk is gone.
 
