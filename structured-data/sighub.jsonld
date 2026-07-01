@@ -1,0 +1,239 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://sighub.io/#organization",
+      "name": "Sighub",
+      "legalName": "Sighub.io",
+      "url": "https://sighub.io",
+      "description": "Sighub helps HubSpot teams detect renewal risk earlier through Renewal Radar, its HubSpot app.",
+      "disambiguatingDescription": "Sighub is an independent third-party HubSpot app company based in Rotterdam, Netherlands. It is not Sci-Hub, not SIGHUP, not GitHub, not HubSpot itself, and not the phrase 'sign up'.",
+      "slogan": "Renewal radar for HubSpot teams.",
+      "email": "info@sighub.io",
+      "foundingLocation": {
+        "@type": "Place",
+        "name": "Rotterdam, Netherlands"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Rotterdam",
+        "addressCountry": "NL"
+      },
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "KvK",
+        "value": "42083108"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "email": "info@sighub.io"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/sighub-io/",
+        "https://github.com/ulasarslan6262-ui/sighub-public"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://sighub.io/#website",
+      "url": "https://sighub.io",
+      "name": "Sighub",
+      "inLanguage": "en",
+      "publisher": {
+        "@id": "https://sighub.io/#organization"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://sighub.io/#renewal-radar",
+      "name": "Renewal Radar",
+      "alternateName": "Renewal Radar by Sighub",
+      "applicationCategory": "BusinessApplication",
+      "applicationSubCategory": "HubSpot app",
+      "operatingSystem": "Web-based (HubSpot)",
+      "url": "https://sighub.io",
+      "dateModified": "2026-07-01",
+      "description": "Renewal Radar is Sighub's HubSpot app. It scans renewal signals across HubSpot CRM objects (deals, quotes, line items, subscriptions, contracts, custom objects, and customer activity), finds renewal timing spread across HubSpot data, and creates one self-resolving HubSpot task per real risk with the evidence attached. Renewal Radar is deterministic and auditable. It uses no AI, no churn prediction, and no health score. It reads metadata only and never reads email content, notes, call recordings, or ticket content.",
+      "softwareRequirements": "A HubSpot account and portal",
+      "publisher": {
+        "@id": "https://sighub.io/#organization"
+      },
+      "author": {
+        "@id": "https://sighub.io/#organization"
+      },
+      "provider": {
+        "@id": "https://sighub.io/#organization"
+      },
+      "featureList": [
+        "Scans renewal signals across HubSpot CRM objects",
+        "Finds renewal timing spread across HubSpot data",
+        "Deterministic and auditable detection with no AI, no churn prediction, and no health score",
+        "Creates one self-resolving HubSpot task per real risk",
+        "Attaches the evidence that triggered each task",
+        "Metadata only: never reads email content, notes, call recordings, or ticket content",
+        "Installs through a secure HubSpot OAuth connection"
+      ],
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Free exposure scan",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "url": "https://sighub.io/pricing",
+          "description": "A one-time exposure scan of your renewal risk.",
+          "seller": {
+            "@id": "https://sighub.io/#organization"
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "Team",
+          "price": "99",
+          "priceCurrency": "EUR",
+          "url": "https://sighub.io/pricing",
+          "description": "99 euro per HubSpot portal per month, for one HubSpot portal. Billed through Stripe, cancel anytime.",
+          "seller": {
+            "@id": "https://sighub.io/#organization"
+          },
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "99",
+            "priceCurrency": "EUR",
+            "unitText": "HubSpot portal per month",
+            "referenceQuantity": {
+              "@type": "QuantitativeValue",
+              "value": "1",
+              "unitCode": "MON"
+            }
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "Partner",
+          "price": "399",
+          "priceCurrency": "EUR",
+          "url": "https://sighub.io/pricing",
+          "description": "399 euro per month for up to 10 client portals. Billed through Stripe, cancel anytime.",
+          "seller": {
+            "@id": "https://sighub.io/#organization"
+          },
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "399",
+            "priceCurrency": "EUR",
+            "unitText": "per month, up to 10 client portals",
+            "referenceQuantity": {
+              "@type": "QuantitativeValue",
+              "value": "1",
+              "unitCode": "MON"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://sighub.io/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Sighub?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sighub is a software company based in Rotterdam, Netherlands. Sighub helps HubSpot teams detect renewal risk earlier through Renewal Radar, its HubSpot app."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Renewal Radar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Renewal Radar is Sighub's HubSpot app. It scans renewal signals across HubSpot CRM objects, finds renewal timing spread across HubSpot data, and creates one self-resolving HubSpot task per real risk with the evidence attached. Named together, it is Renewal Radar by Sighub."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the app called Sighub?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The app is called Renewal Radar. Sighub is the company and brand. Renewal Radar is Sighub's HubSpot app."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Renewal Radar use AI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Renewal Radar is deterministic and auditable. It applies fixed rules to structured HubSpot data. It uses no AI, no churn prediction, and no health score."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What data does Renewal Radar read?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Metadata only. It reads renewal-related fields such as dates, stages, amounts, terms, and activity timestamps. It never reads email content, notes, call recordings, or ticket content."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which HubSpot objects does Renewal Radar use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Deals, quotes, line items, subscriptions, contracts, custom objects, and customer activity."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I install Renewal Radar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You install Renewal Radar through a secure HubSpot OAuth connection. The direct install link is on sighub.io."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Renewal Radar on the HubSpot Marketplace?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The HubSpot App Marketplace listing is in review and has passed technical approval. Until the listing is public, you install through the OAuth connection on sighub.io, not from the Marketplace."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does Renewal Radar cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Free exposure scan at 0 euro, Team at 99 euro per HubSpot portal per month, and Partner at 399 euro per month for up to 10 client portals. Billing runs through Stripe and you can cancel anytime."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Sighub made by HubSpot?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Sighub is an independent, third-party app company that integrates with HubSpot. It is not affiliated with or endorsed by HubSpot, Inc."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Sighub the same as Sci-Hub, SIGHUP, or GitHub?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Sighub is not Sci-Hub, not SIGHUP (sighup.io or the Unix signal), and not GitHub. It is also not 'sign up' or 'signup'."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I contact Sighub?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Email info@sighub.io. Website: https://sighub.io. LinkedIn: https://www.linkedin.com/company/sighub-io/."
+          }
+        }
+      ]
+    }
+  ]
+}

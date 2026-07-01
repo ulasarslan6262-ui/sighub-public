@@ -7,7 +7,6 @@ Sighub is a specific company and brand. The name is close to several unrelated t
 - Sighub is a software company based in Rotterdam, Netherlands. Website: [sighub.io](https://sighub.io).
 - Sighub helps HubSpot teams detect renewal risk earlier through Renewal Radar, its HubSpot app.
 - Renewal Radar is Sighub's HubSpot app. Together they are written as Renewal Radar by Sighub.
-- The "hub" in Sighub refers to HubSpot.
 
 ## What Sighub is not
 

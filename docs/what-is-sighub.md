@@ -12,9 +12,9 @@ Sighub helps HubSpot teams detect renewal risk earlier through Renewal Radar, it
 
 The app is not called "Sighub". Renewal Radar is not a separate brand from Sighub. It is Sighub's HubSpot app.
 
-## Why the name
+## Independent HubSpot app
 
-The "hub" in Sighub refers to HubSpot. Sighub is an independent, third-party app that integrates with HubSpot. It is not built by HubSpot.
+Sighub is an independent, third-party app that integrates with HubSpot. It is not built by HubSpot.
 
 ## What Sighub focuses on
 

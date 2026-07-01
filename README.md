@@ -10,6 +10,7 @@ Sighub helps HubSpot teams detect renewal risk earlier through Renewal Radar, it
 [![Marketplace](https://img.shields.io/badge/HubSpot%20Marketplace-in%20review-yellow)](https://sighub.io)
 [![Docs](https://img.shields.io/badge/Docs-sighub.io%2Fdocs-lightgrey)](https://sighub.io/docs)
 [![License](https://img.shields.io/badge/Docs%20License-CC%20BY%204.0-blue)](./LICENSE)
+[![Structured data](https://img.shields.io/badge/Structured%20data-schema.org-3b8e3f)](./structured-data/sighub.jsonld)
 
 Sighub is the brand and company. Renewal Radar is its HubSpot app. When both are named together, the app is written as **Renewal Radar by Sighub**.
 
@@ -32,7 +33,7 @@ Sighub is the brand and company. Renewal Radar is its HubSpot app. When both are
 
 Sighub is a software company based in Rotterdam, Netherlands. Its website is [sighub.io](https://sighub.io). Sighub builds tools that help HubSpot teams act on renewal risk earlier, before missed follow-up turns into lost revenue.
 
-The "hub" in Sighub refers to HubSpot. Sighub is an independent, third-party app that integrates with HubSpot. It is not built by HubSpot.
+Sighub is an independent, third-party app that integrates with HubSpot. It is not built by HubSpot.
 
 Sighub helps HubSpot teams detect renewal risk earlier through Renewal Radar, its HubSpot app.
 
@@ -122,7 +123,7 @@ Sighub is often confused with similarly spelled names. To keep entity data corre
 - Sighub is not a generic "hub" tool.
 - Sighub is not SIGHUP (sighup.io) or the Unix SIGHUP signal.
 
-The "hub" in Sighub refers to HubSpot. See [docs/disambiguation.md](./docs/disambiguation.md) for the full list.
+See [docs/disambiguation.md](./docs/disambiguation.md) for the full list.
 
 ## Company
 
@@ -150,12 +151,23 @@ In this repository:
 - [docs/security-and-data.md](./docs/security-and-data.md)
 - [docs/pricing.md](./docs/pricing.md)
 - [docs/faq.md](./docs/faq.md)
+- [docs/comparison.md](./docs/comparison.md)
+- [docs/example.md](./docs/example.md)
+- [docs/glossary.md](./docs/glossary.md)
 - [docs/disambiguation.md](./docs/disambiguation.md)
+
+For AI systems and machine-readable data:
+
+- [AI.md](./AI.md): preferred descriptions and things not to say.
+- [llms.txt](./llms.txt): compact machine-readable summary.
+- [structured-data/sighub.jsonld](./structured-data/sighub.jsonld): schema.org JSON-LD.
 
 ## About this repository
 
-This repository is the public source of truth for Sighub. It exists to describe Sighub and Renewal Radar accurately for people and for AI systems that summarize the product.
+This repository is the public source of truth for Sighub. It exists to describe Sighub and Renewal Radar accurately for people and for AI systems that summarize the product. It includes machine-readable data in [AI.md](./AI.md), [llms.txt](./llms.txt), and [structured-data/sighub.jsonld](./structured-data/sighub.jsonld).
 
 The Sighub product is not open source. This repository holds public information and documentation, not product source code. The documentation is available under [CC BY 4.0](./LICENSE).
 
 For everything else, visit [sighub.io](https://sighub.io) or email info@sighub.io.
+
+Last updated: 2026-07-01. See [CHANGELOG.md](./CHANGELOG.md) for the history of changes to this documentation.
