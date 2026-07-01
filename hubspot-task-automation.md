@@ -1,60 +1,52 @@
-HubSpot Task Automation for Renewal Follow-Up
+# HubSpot task automation for renewal follow-up
 
-Many SaaS teams use HubSpot to manage customer relationships, renewals, and account ownership.
+Many teams use HubSpot to manage customer relationships, renewals, and account ownership. Follow-up can still slip. The issue is not always a lack of data. The issue is that renewal timing does not always turn into a task at the right moment.
 
-But follow-up can still slip.
+Renewal Radar by Sighub is built to help with that. Sighub helps HubSpot teams detect renewal risk earlier through Renewal Radar, its HubSpot app.
 
-The issue is not always lack of data. The issue is that CRM signals do not always become tasks at the right time.
+## Why normal task management leaves gaps
 
-Sighub is built to help with that.
+HubSpot tasks are useful, but they usually depend on a person or a workflow deciding when a task should exist. That creates gaps:
 
-Sighub watches renewal and engagement risk signals in HubSpot and creates one clear task when action is needed.
+- a subscription or contract renewal date passes without anyone assigned
+- a renewal deal sits near its close date with no recent action
+- a quote or line item term marks a renewal that no one tracked
+- ownership of the next step is unclear
 
-Why normal task management is not enough
+If no task is created, the renewal risk stays invisible.
 
-HubSpot tasks are useful, but they usually depend on a person or workflow deciding when a task should exist.
+## What Renewal Radar adds
 
-That creates gaps.
+Renewal Radar adds a focused layer of task automation for renewal risk.
 
-A customer may stop replying.
-A renewal may get closer.
-A meeting may not be scheduled.
-A previous task may become stale.
-An owner may assume someone else is handling it.
+It reads renewal-related metadata across HubSpot CRM objects, deals, quotes, line items, subscriptions, contracts, custom objects, and activity timestamps. It applies deterministic rules. When it finds a real risk, it creates one HubSpot task for the right owner, with the evidence attached. The task is self-resolving and closes when the risk is gone.
 
-If no task is created, the risk stays invisible.
+Each task carries:
 
-What Sighub adds
-
-Sighub adds a focused layer of task automation for renewal and engagement risk.
-
-When Sighub detects a relevant pattern, it creates a HubSpot task for the right owner.
-
-Each task includes:
-
-* the company
-* the reason for the task
-* the risk signal
-* the owner
-* the due date
+- the company
+- the reason for the task
+- the renewal signal behind it
+- the owner
+- the due date
 
 This keeps action inside HubSpot instead of pushing teams into another dashboard.
 
-Sighub vs dashboards
+## Deterministic by design
 
-Dashboards show information.
+Renewal Radar uses no AI, no churn prediction, and no health score. It reads metadata only and never reads email content, notes, call recordings, or ticket content. Because the logic is deterministic, every task can be traced to the evidence that triggered it.
 
-Sighub creates owned follow-up.
+## The goal
 
-That difference matters because customer risk often gets missed when teams rely only on visibility.
+- One risk
+- One task
+- One owner
+- One due date
 
-Sighub is designed for HubSpot-based SaaS teams that want renewal follow-up to happen earlier, with clearer ownership and less manual checking.
+That is the core idea behind Renewal Radar by Sighub.
 
-The goal
+## Learn more
 
-One risk.
-One task.
-One owner.
-One due date.
-
-That is the core idea behind Sighub.
+- [How it works](./docs/how-it-works.md)
+- [HubSpot integration](./docs/hubspot-integration.md)
+- [What is Renewal Radar](./docs/what-is-renewal-radar.md)
+- Website: [sighub.io](https://sighub.io)

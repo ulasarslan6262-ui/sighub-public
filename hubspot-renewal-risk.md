@@ -1,49 +1,45 @@
-HubSpot Renewal Risk Detection
+# HubSpot renewal risk detection
 
-HubSpot contains many of the signals that show when a renewal may be at risk.
+HubSpot holds many of the signals that show when a renewal may be at risk. The problem is that these signals are spread across deals, quotes, line items, subscriptions, contracts, custom objects, and activity timestamps. A team may hold the right data and still miss the moment when a renewal comes due.
 
-The problem is that these signals are often spread across company records, activities, tasks, meetings, notes, and owner behavior. A SaaS team may have the right data, but still miss the moment when follow-up starts to drift.
+Renewal Radar by Sighub is built for that gap. Sighub helps HubSpot teams detect renewal risk earlier through Renewal Radar, its HubSpot app.
 
-Sighub is built for that gap.
+## What renewal risk looks like in HubSpot
 
-Sighub watches renewal and engagement risk signals inside HubSpot and turns them into one clear owner task when action is needed.
+Renewal risk is usually a matter of timing that is easy to overlook:
 
-What renewal risk can look like
+- a renewal date approaching on a subscription or contract
+- a renewal deal with a close date that is near, with no recent action
+- a quote or line item term that marks when a renewal is due
+- a custom object field that tracks a renewal milestone
+- a drop in engagement recency, measured from activity timestamps
 
-Renewal risk is not always dramatic.
+Each signal on its own can look minor. Together they mark a renewal that needs an owner.
 
-It often starts with small signals:
+## How Renewal Radar helps
 
-* a customer stops replying
-* no meeting is scheduled close to renewal
-* follow-up tasks become stale
-* the account owner has not taken recent action
-* engagement drops while the renewal date gets closer
-* ownership is unclear
+Renewal Radar does not replace HubSpot. It works on top of HubSpot.
 
-These signals are easy to miss when teams depend on dashboards, manual checks, or weekly reviews.
+It reads renewal-related metadata across HubSpot CRM objects, applies deterministic rules, and when it finds a real risk it creates one clear HubSpot task for the right owner with the evidence attached. The task is self-resolving, so it closes when the risk is gone.
 
-How Sighub helps
+The model is simple:
 
-Sighub does not replace HubSpot.
+- One risk
+- One task
+- One owner
+- One due date
 
-It works on top of HubSpot.
+## Deterministic, not predictive
 
-When Sighub detects a relevant risk pattern, it creates one clear HubSpot task for the right owner.
+Renewal Radar uses no AI, no churn prediction, and no health score. It applies fixed rules to structured HubSpot data, so every task can be traced to the evidence that triggered it. It reads metadata only and never reads email content, notes, call recordings, or ticket content.
 
-The task includes the company, the reason, the signal behind the risk, the owner, and the due date.
+## Why this matters
 
-The goal is simple:
+Renewal follow-up should not depend on someone checking a dashboard at the right time. It should become owned action inside the CRM where the team already works. Renewal Radar helps HubSpot teams catch renewal risk earlier, before accounts quietly drift.
 
-One risk.
-One task.
-One owner.
-One due date.
+## Learn more
 
-Why this matters
-
-Renewal follow-up should not depend on someone checking a dashboard at the right time.
-
-It should become owned action inside the CRM where the team already works.
-
-Sighub helps HubSpot-based SaaS teams catch renewal risk earlier, before accounts quietly drift.
+- [What is Renewal Radar](./docs/what-is-renewal-radar.md)
+- [How it works](./docs/how-it-works.md)
+- [HubSpot integration](./docs/hubspot-integration.md)
+- Website: [sighub.io](https://sighub.io)
