@@ -13,6 +13,9 @@ Sighub helps HubSpot teams detect renewal risk earlier through Renewal Radar, it
 - [Security and data](./security-and-data.md): Metadata-only access, encryption, deletion.
 - [Pricing](./pricing.md): Free exposure scan, Team, and Partner plans.
 - [FAQ](./faq.md): Common questions and short answers.
+- [Comparison](./comparison.md): Renewal Radar compared to other approaches.
+- [Example](./example.md): An illustrative walkthrough from renewal signal to owned task.
+- [Glossary](./glossary.md): Fixed definitions for the key terms.
 - [Disambiguation](./disambiguation.md): What Sighub is and is not.
 
 ## Quick facts
@@ -24,5 +27,7 @@ Sighub helps HubSpot teams detect renewal risk earlier through Renewal Radar, it
 - Integration: HubSpot.
 - Install: secure HubSpot OAuth connection, direct link on sighub.io. Marketplace listing in review.
 - Approach: deterministic and auditable, no AI, no churn prediction, no health score, metadata only.
+
+Machine-readable data lives in [AI.md](../AI.md), [llms.txt](../llms.txt), and [structured-data/sighub.jsonld](../structured-data/sighub.jsonld).
 
 For the live site, visit [sighub.io](https://sighub.io).
