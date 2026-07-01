@@ -1,6 +1,6 @@
 # HubSpot integration
 
-Renewal Radar by Sighub is an independent, third-party app that integrates with HubSpot. It is not built by HubSpot. The "hub" in Sighub refers to HubSpot.
+Renewal Radar by Sighub is an independent, third-party app that integrates with HubSpot. It is not built by HubSpot.
 
 This page lists the HubSpot objects Renewal Radar reads and the signals it uses.
 
