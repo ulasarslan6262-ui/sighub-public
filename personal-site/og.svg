@@ -1,1 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><defs><radialGradient id="a" cx="72%" cy="48%" r="46%"><stop offset="0" stop-color="#ff5a1f" stop-opacity=".24"/><stop offset=".55" stop-color="#3859ff" stop-opacity=".09"/><stop offset="1" stop-color="#050607" stop-opacity="0"/></radialGradient></defs><rect width="1200" height="630" fill="#050607"/><rect width="1200" height="630" fill="url(#a)"/><g transform="translate(865 315)" fill="none"><circle r="170" stroke="#22262e" stroke-width="22"/><circle r="110" stroke="#3a3f49" stroke-width="2"/><circle r="58" fill="#ff5a1f" stroke="#ff8a60" stroke-width="2"/><path d="M-185 0C-95-135 105-135 185 0C105 135-95 135-185 0Z" stroke="#f3f0e8" stroke-opacity=".35" stroke-width="3" transform="rotate(-28)"/></g><text x="78" y="115" fill="#8f949e" font-family="Arial" font-size="19" letter-spacing="5">PRODUCT BUILDER · ROTTERDAM</text><text x="72" y="320" fill="#f3f0e8" font-family="Arial" font-size="108" font-weight="600" letter-spacing="-7">ULAŞ ARSLAN</text><text x="78" y="405" fill="#ff5a1f" font-family="Georgia" font-style="italic" font-size="54">I build the missing layer.</text><line x1="78" y1="510" x2="560" y2="510" stroke="#30343c"/><text x="78" y="548" fill="#8f949e" font-family="monospace" font-size="16" letter-spacing="3">NOISE → SIGNAL → DECISION → SYSTEM</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="g" cx="78%" cy="48%" r="48%">
+      <stop offset="0" stop-color="#ff6426" stop-opacity=".18"/>
+      <stop offset=".52" stop-color="#263047" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#050607" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#050607"/>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <g transform="translate(895 315)" fill="none">
+    <circle r="172" stroke="#20242b" stroke-width="28"/>
+    <circle r="118" stroke="#3a3f48" stroke-width="2"/>
+    <circle r="58" fill="#ff6426" stroke="#ff9d76" stroke-width="2"/>
+    <path d="M-182 0C-104-112 104-112 182 0C104 112-104 112-182 0Z" stroke="#f2f1ec" stroke-opacity=".28" stroke-width="2" transform="rotate(-28)"/>
+  </g>
+  <text x="76" y="112" fill="#969aa3" font-family="Arial,Helvetica,sans-serif" font-size="18" letter-spacing="5">PRODUCT BUILDER · ROTTERDAM</text>
+  <text x="72" y="320" fill="#f2f1ec" font-family="Arial,Helvetica,sans-serif" font-size="104" font-weight="600" letter-spacing="-7">ULAŞ ARSLAN</text>
+  <text x="78" y="408" fill="#ff6426" font-family="Georgia,serif" font-style="italic" font-size="52">I build the missing layer.</text>
+  <line x1="78" y1="508" x2="565" y2="508" stroke="#30343c"/>
+  <text x="78" y="548" fill="#969aa3" font-family="monospace" font-size="15" letter-spacing="3">NOISE · SIGNAL · DECISION · SYSTEM</text>
+</svg>
