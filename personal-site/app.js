@@ -1,314 +1,405 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.min.js';
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 const gsap = window.gsap;
 const ScrollTrigger = window.ScrollTrigger;
 if (gsap && ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
 
-const palette = [0xf04232, 0x1746d1, 0xf4d646, 0xf2eadb, 0xb9ff61];
-const canvas = document.querySelector('#world');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 1.75));
-renderer.setSize(innerWidth, innerHeight);
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.08;
+const canvas = document.querySelector('#experience');
+const mobile = innerWidth < 720;
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.1, 100);
-camera.position.set(0, 0, 11.5);
-
-const key = new THREE.DirectionalLight(0xffffff, 4.5);
-key.position.set(2.5, 5, 7);
-scene.add(key);
-const rim = new THREE.DirectionalLight(0x6b7dff, 3.5);
-rim.position.set(-5, -1, 3);
-scene.add(rim);
-const fill = new THREE.AmbientLight(0xffffff, 1.25);
-scene.add(fill);
-
-const world = new THREE.Group();
-scene.add(world);
-
-const COUNT = innerWidth < 720 ? 34 : 62;
-const shards = [];
-const targetPositions = [];
-const targetRotations = [];
-const baseScales = [];
-
-function seeded(index, salt = 0) {
-  const x = Math.sin(index * 999.1 + salt * 78.233) * 43758.5453;
-  return x - Math.floor(x);
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+} catch (error) {
+  document.documentElement.classList.add('no-webgl');
+  console.warn('WebGL unavailable', error);
 }
 
-function geometryFor(i) {
-  const type = i % 6;
-  if (type === 0) return new THREE.TetrahedronGeometry(.55 + seeded(i, 1) * .75, 0);
-  if (type === 1) return new THREE.OctahedronGeometry(.5 + seeded(i, 2) * .65, 0);
-  if (type === 2) return new THREE.BoxGeometry(.35 + seeded(i, 3) * .65, .35 + seeded(i, 4) * 1.2, .3 + seeded(i, 5) * .6);
-  if (type === 3) return new THREE.ConeGeometry(.35 + seeded(i, 6) * .45, .8 + seeded(i, 7) * 1.1, 3 + (i % 3));
-  if (type === 4) return new THREE.IcosahedronGeometry(.45 + seeded(i, 8) * .55, 0);
-  return new THREE.CylinderGeometry(.2 + seeded(i, 9) * .35, .45 + seeded(i, 10) * .45, .65 + seeded(i, 11) * 1.1, 3 + (i % 4));
-}
+if (renderer) {
+  renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.25 : 1.75));
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.15;
 
-for (let i = 0; i < COUNT; i++) {
-  const material = new THREE.MeshStandardMaterial({
-    color: palette[i % palette.length],
-    roughness: .48,
-    metalness: .08,
-    flatShading: true,
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x050607, 0.055);
+  const camera = new THREE.PerspectiveCamera(38, innerWidth / innerHeight, 0.1, 100);
+  camera.position.set(0, 0, mobile ? 11.8 : 10.6);
+
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+  const key = new THREE.DirectionalLight(0xffffff, 3.3);
+  key.position.set(4, 6, 6);
+  scene.add(key);
+  const rim = new THREE.DirectionalLight(0x3859ff, 5.5);
+  rim.position.set(-5, 1, 3);
+  scene.add(rim);
+  const orangeLight = new THREE.PointLight(0xff5a1f, 38, 12, 1.7);
+  orangeLight.position.set(0, 0, 1.2);
+  scene.add(orangeLight);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+
+  const engine = new THREE.Group();
+  engine.position.x = mobile ? 0 : 2.55;
+  scene.add(engine);
+
+  const chrome = new THREE.MeshPhysicalMaterial({
+    color: 0x111318,
+    metalness: 0.96,
+    roughness: 0.16,
+    clearcoat: 1,
+    clearcoatRoughness: 0.06,
+    envMapIntensity: 1.8,
     transparent: true,
-    opacity: .93,
+    opacity: 1
+  });
+  const shell = new THREE.Mesh(new THREE.TorusKnotGeometry(2.15, 0.38, mobile ? 180 : 320, 32, 2, 3), chrome);
+  shell.rotation.set(0.48, -0.32, 0.15);
+  engine.add(shell);
+
+  const wire = new THREE.Mesh(
+    new THREE.TorusKnotGeometry(2.17, 0.405, mobile ? 150 : 260, 18, 2, 3),
+    new THREE.MeshBasicMaterial({ color: 0xff5a1f, wireframe: true, transparent: true, opacity: 0.13 })
+  );
+  wire.rotation.copy(shell.rotation);
+  engine.add(wire);
+
+  const coreMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0xff5a1f,
+    emissive: 0xff2e00,
+    emissiveIntensity: 4.7,
+    metalness: 0.1,
+    roughness: 0.18,
+    transmission: 0.12,
+    thickness: 1.2,
+    clearcoat: 1
+  });
+  const core = new THREE.Mesh(new THREE.IcosahedronGeometry(0.62, 5), coreMaterial);
+  engine.add(core);
+
+  const ringMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0x252a34,
+    metalness: 0.92,
+    roughness: 0.2,
+    transparent: true,
+    opacity: 0.72,
     side: THREE.DoubleSide
   });
-  const mesh = new THREE.Mesh(geometryFor(i), material);
-  const edge = new THREE.LineSegments(
-    new THREE.EdgesGeometry(mesh.geometry, 25),
-    new THREE.LineBasicMaterial({ color: 0x090806, transparent: true, opacity: .32 })
-  );
-  mesh.add(edge);
-  mesh.userData.index = i;
-  mesh.userData.speed = .2 + seeded(i, 12) * .9;
-  mesh.position.set((seeded(i, 13) - .5) * 18, (seeded(i, 14) - .5) * 13, (seeded(i, 15) - .5) * 8);
-  mesh.rotation.set(seeded(i, 16) * 6, seeded(i, 17) * 6, seeded(i, 18) * 6);
-  const scale = .35 + seeded(i, 19) * .8;
-  mesh.scale.setScalar(scale);
-  baseScales.push(scale);
-  targetPositions.push(mesh.position.clone());
-  targetRotations.push(mesh.rotation.clone());
-  shards.push(mesh);
-  world.add(mesh);
-}
-
-const haloGeometry = new THREE.RingGeometry(2.8, 2.84, 128);
-const haloMaterial = new THREE.MeshBasicMaterial({ color: 0xf2eadb, transparent: true, opacity: .18, side: THREE.DoubleSide });
-const halo = new THREE.Mesh(haloGeometry, haloMaterial);
-halo.rotation.x = Math.PI / 2;
-world.add(halo);
-
-const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
-addEventListener('pointermove', (event) => {
-  mouse.tx = (event.clientX / innerWidth - .5) * 2;
-  mouse.ty = (event.clientY / innerHeight - .5) * 2;
-});
-
-function chaos(i) {
-  return new THREE.Vector3((seeded(i, 21) - .5) * 18, (seeded(i, 22) - .5) * 12, (seeded(i, 23) - .5) * 7);
-}
-function figure(i) {
-  const t = i / Math.max(1, COUNT - 1);
-  if (t < .26) {
-    const a = t / .26 * Math.PI * 2;
-    return new THREE.Vector3(Math.cos(a) * 1.6, 2.6 + Math.sin(a) * 1.8, Math.sin(a * 2) * .6);
-  }
-  if (t < .72) {
-    const r = (t - .26) / .46;
-    const side = i % 2 ? 1 : -1;
-    return new THREE.Vector3(side * (1.0 + r * 1.7), 1.2 - r * 4.4, (seeded(i, 24) - .5) * 1.4);
-  }
-  const r = (t - .72) / .28;
-  const side = i % 2 ? 1 : -1;
-  return new THREE.Vector3(side * (1.6 + r * 1.8), -2.7 - r * 2.4, (seeded(i, 25) - .5) * 1.2);
-}
-function radar(i) {
-  const ring = i % 4;
-  const a = (i / COUNT) * Math.PI * 10 + ring * .4;
-  const radius = 1.2 + ring * 1.15;
-  return new THREE.Vector3(Math.cos(a) * radius, Math.sin(a) * radius, (ring - 1.5) * .42);
-}
-function wave(i) {
-  const x = (i / (COUNT - 1) - .5) * 11;
-  const y = Math.sin(i * .7) * (1.1 + seeded(i, 26) * 1.3);
-  return new THREE.Vector3(x, y, (seeded(i, 27) - .5) * 2.4);
-}
-function spiral(i) {
-  const t = i / COUNT * Math.PI * 7;
-  const radius = .9 + i / COUNT * 3.5;
-  return new THREE.Vector3(Math.cos(t) * radius, -4.3 + i / COUNT * 8.6, Math.sin(t) * radius * .7);
-}
-function grid(i) {
-  const cols = Math.ceil(Math.sqrt(COUNT));
-  const row = Math.floor(i / cols);
-  const col = i % cols;
-  return new THREE.Vector3((col - cols / 2) * 1.25, (row - cols / 2) * 1.25, Math.sin(i) * .35);
-}
-function monogram(i) {
-  const t = i / COUNT;
-  if (t < .5) {
-    const p = t / .5;
-    const a = Math.PI + p * Math.PI;
-    return new THREE.Vector3(-2.2 + Math.cos(a) * 1.9, .9 + Math.sin(a) * 2.9, (seeded(i, 28) - .5) * .7);
-  }
-  const p = (t - .5) / .5;
-  const side = p < .5 ? -1 : 1;
-  const q = p < .5 ? p * 2 : (p - .5) * 2;
-  const y = -3.2 + q * 6.2;
-  const x = 2.2 + side * (1.8 - q * 1.5);
-  return new THREE.Vector3(x, y, (seeded(i, 29) - .5) * .7);
-}
-function finalBurst(i) {
-  const a = i / COUNT * Math.PI * 2;
-  const r = 2 + (i % 7) * .6;
-  return new THREE.Vector3(Math.cos(a) * r, Math.sin(a) * r, (seeded(i, 30) - .5) * 4.5);
-}
-
-const patterns = [chaos, figure, radar, wave, spiral, grid, monogram, finalBurst];
-let activeScene = 0;
-let scrollProgress = 0;
-
-function setPattern(sceneIndex) {
-  activeScene = Math.max(0, Math.min(patterns.length - 1, sceneIndex));
-  const pattern = patterns[activeScene];
-  shards.forEach((mesh, i) => {
-    const p = pattern(i);
-    targetPositions[i].copy(p);
-    targetRotations[i].set(
-      seeded(i, activeScene + 40) * Math.PI * 2,
-      seeded(i, activeScene + 60) * Math.PI * 2,
-      seeded(i, activeScene + 80) * Math.PI * 2
-    );
+  const rings = [2.9, 3.55, 4.25].map((radius, index) => {
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(radius, index === 0 ? 0.025 : 0.014, 8, 180), ringMaterial.clone());
+    ring.rotation.set(Math.PI / 2 + index * 0.37, index * 0.45, index * 0.22);
+    engine.add(ring);
+    return ring;
   });
-  halo.visible = activeScene === 2;
-  if (gsap) {
-    gsap.to(haloMaterial, { opacity: activeScene === 2 ? .34 : 0, duration: .8 });
-    gsap.to(camera.position, {
-      z: [11.5, 12.5, 10.2, 11.2, 12.8, 12.5, 10.8, 12][activeScene],
-      duration: 1.4,
-      ease: 'power3.inOut'
-    });
+
+  const shardMaterial = new THREE.MeshPhysicalMaterial({ color: 0x20242c, metalness: 0.88, roughness: 0.22, flatShading: true });
+  const shards = Array.from({ length: 9 }, (_, i) => {
+    const shard = new THREE.Mesh(new THREE.OctahedronGeometry(0.18 + (i % 3) * 0.05, 0), shardMaterial.clone());
+    const angle = i / 9 * Math.PI * 2;
+    shard.position.set(Math.cos(angle) * (3.1 + (i % 2) * 0.8), Math.sin(angle) * (2.2 + (i % 3) * 0.4), (i % 3 - 1) * 0.45);
+    shard.rotation.set(i, i * 0.4, i * 0.7);
+    engine.add(shard);
+    return shard;
+  });
+
+  const COUNT = mobile ? 720 : 1550;
+  const positions = new Float32Array(COUNT * 3);
+  const targets = new Float32Array(COUNT * 3);
+  const seeds = new Float32Array(COUNT * 4);
+  for (let i = 0; i < COUNT; i++) {
+    const r = 2.8 + Math.random() * 3.7;
+    const a = Math.random() * Math.PI * 2;
+    const b = Math.acos(2 * Math.random() - 1);
+    positions[i * 3] = Math.sin(b) * Math.cos(a) * r;
+    positions[i * 3 + 1] = Math.sin(b) * Math.sin(a) * r;
+    positions[i * 3 + 2] = Math.cos(b) * r;
+    targets.set(positions.subarray(i * 3, i * 3 + 3), i * 3);
+    seeds.set([Math.random(), Math.random(), Math.random(), Math.random()], i * 4);
   }
-}
+  const particlesGeometry = new THREE.BufferGeometry();
+  particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const particleMaterial = new THREE.PointsMaterial({
+    color: 0xbfc5d2,
+    size: mobile ? 0.025 : 0.019,
+    transparent: true,
+    opacity: 0.72,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    sizeAttenuation: true
+  });
+  const particles = new THREE.Points(particlesGeometry, particleMaterial);
+  engine.add(particles);
 
-const toneMap = {
-  ink: { color: 0xf2eadb, fog: 0x090806 },
-  bone: { color: 0x090806, fog: 0xf2eadb },
-  blue: { color: 0xf2eadb, fog: 0x1746d1 },
-  red: { color: 0x090806, fog: 0xf04232 },
-  yellow: { color: 0x090806, fog: 0xf4d646 }
-};
+  const composer = new EffectComposer(renderer);
+  composer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.25 : 1.75));
+  composer.addPass(new RenderPass(scene, camera));
+  const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), mobile ? 0.42 : 0.66, 0.65, 0.84);
+  composer.addPass(bloom);
+  composer.addPass(new OutputPass());
 
-function activateSection(section) {
-  const index = Number(section.dataset.scene || 0);
-  setPattern(index);
-  document.querySelector('.rail-number').textContent = String(index + 1).padStart(2, '0');
-  const tone = toneMap[section.dataset.tone] || toneMap.ink;
-  key.color.setHex(tone.color);
-  rim.color.setHex(index % 2 ? 0xf04232 : 0x1746d1);
-}
+  const stateTargets = [];
+  const setPoint = (arr, i, x, y, z) => {
+    arr[i * 3] = x;
+    arr[i * 3 + 1] = y;
+    arr[i * 3 + 2] = z;
+  };
+  const buildTargets = (state) => {
+    const arr = new Float32Array(COUNT * 3);
+    for (let i = 0; i < COUNT; i++) {
+      const t = i / COUNT;
+      const s0 = seeds[i * 4], s1 = seeds[i * 4 + 1], s2 = seeds[i * 4 + 2];
+      if (state === 0) {
+        const r = 2.4 + s0 * 4.2;
+        const a = s1 * Math.PI * 2;
+        const b = Math.acos(2 * s2 - 1);
+        setPoint(arr, i, Math.sin(b) * Math.cos(a) * r, Math.sin(b) * Math.sin(a) * r, Math.cos(b) * r);
+      } else if (state === 1) {
+        const a = t * Math.PI * 14;
+        const r = 1.8 + t * 3.1 + (s0 - .5) * .35;
+        setPoint(arr, i, Math.cos(a) * r, (t - .5) * 7.4, Math.sin(a) * r * .55);
+      } else if (state === 2) {
+        const ring = i % 6;
+        const a = t * Math.PI * 34 + ring * .2;
+        const r = 1.1 + ring * .63 + (s0 - .5) * .12;
+        setPoint(arr, i, Math.cos(a) * r, Math.sin(a) * r, (ring - 2.5) * .16);
+      } else if (state === 3) {
+        const x = (t - .5) * 12;
+        const amp = 1.0 + s0 * 1.9;
+        setPoint(arr, i, x, Math.sin(t * Math.PI * 18 + s1 * 1.5) * amp, (s2 - .5) * 2.4);
+      } else if (state === 4) {
+        const branch = i % 7;
+        const p = (i / 7) / Math.ceil(COUNT / 7);
+        const a = branch / 7 * Math.PI * 2 + p * 1.4;
+        const r = 0.8 + p * 5.2;
+        setPoint(arr, i, Math.cos(a) * r, (p - .5) * 8 + Math.sin(a * 2) * .4, Math.sin(a) * r * .5);
+      } else if (state === 5) {
+        const cols = Math.ceil(Math.sqrt(COUNT));
+        const row = Math.floor(i / cols);
+        const col = i % cols;
+        setPoint(arr, i, (col - cols / 2) * .16, (row - cols / 2) * .16, Math.sin(i * .17) * .12);
+      } else if (state === 6) {
+        const a = t * Math.PI * 16;
+        const r = 2.2 + Math.sin(t * Math.PI * 8) * 1.5;
+        setPoint(arr, i, Math.cos(a) * r, Math.sin(a * 1.5) * 2.7, Math.sin(a) * r * .65);
+      } else if (state === 7) {
+        if (i < COUNT * .52) {
+          const p = i / (COUNT * .52);
+          const a = Math.PI + p * Math.PI;
+          setPoint(arr, i, -1.8 + Math.cos(a) * 1.8 + (s0 - .5) * .12, .9 + Math.sin(a) * 2.7, (s1 - .5) * .35);
+        } else {
+          const p = (i - COUNT * .52) / (COUNT * .48);
+          const side = p < .5 ? -1 : 1;
+          const q = p < .5 ? p * 2 : (p - .5) * 2;
+          setPoint(arr, i, 2 + side * (1.65 - q * 1.35), -2.9 + q * 5.8, (s2 - .5) * .35);
+        }
+      } else {
+        const a = t * Math.PI * 28;
+        const r = 1.5 + s0 * 4.5;
+        setPoint(arr, i, Math.cos(a) * r, Math.sin(a) * r, (s2 - .5) * 6);
+      }
+    }
+    return arr;
+  };
+  for (let state = 0; state < 9; state++) stateTargets.push(buildTargets(state));
 
-const sections = [...document.querySelectorAll('.scene')];
-sections.forEach((section) => {
-  if (ScrollTrigger) {
-    ScrollTrigger.create({
-      trigger: section,
-      start: 'top 48%',
-      end: 'bottom 48%',
-      onEnter: () => activateSection(section),
-      onEnterBack: () => activateSection(section)
-    });
-  }
-});
+  const stateConfig = [
+    { x: 2.55, y: 0, z: 0, scale: 1, shell: 1, core: 1, rings: 1, bloom: .66 },
+    { x: 2.8, y: 0, z: 0, scale: .95, shell: .82, core: .86, rings: .82, bloom: .52 },
+    { x: 2.4, y: 0, z: 0, scale: 1.04, shell: .48, core: 1.18, rings: 1.28, bloom: .78 },
+    { x: -2.35, y: 0, z: 0, scale: .88, shell: .2, core: .78, rings: .5, bloom: .6 },
+    { x: 2.5, y: 0, z: 0, scale: 1.08, shell: .7, core: .9, rings: .7, bloom: .52 },
+    { x: 2.7, y: 0, z: 0, scale: .78, shell: .1, core: .62, rings: .25, bloom: .4 },
+    { x: 2.45, y: 0, z: 0, scale: .94, shell: .55, core: .75, rings: .58, bloom: .5 },
+    { x: 2.4, y: 0, z: 0, scale: .8, shell: .05, core: .58, rings: .12, bloom: .42 },
+    { x: 2.2, y: 0, z: 0, scale: 1.1, shell: .82, core: 1.35, rings: .95, bloom: .88 }
+  ];
 
-if (ScrollTrigger) {
-  ScrollTrigger.create({
-    start: 0,
-    end: 'max',
-    onUpdate: (self) => {
-      scrollProgress = self.progress;
-      gsap.set('.rail-track b', { height: `${self.progress * 100}%` });
-      world.rotation.z = self.progress * .36;
+  let activeState = 0;
+  let targetState = 0;
+  const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+  addEventListener('pointermove', (event) => {
+    pointer.tx = event.clientX / innerWidth * 2 - 1;
+    pointer.ty = -(event.clientY / innerHeight * 2 - 1);
+  });
+
+  const applyState = (state) => {
+    targetState = state;
+    const cfg = stateConfig[state];
+    targets.set(stateTargets[state]);
+    const desiredX = mobile ? 0 : cfg.x;
+    if (gsap) {
+      gsap.to(engine.position, { x: desiredX, y: cfg.y, z: cfg.z, duration: 1.5, ease: 'power3.inOut' });
+      gsap.to(engine.scale, { x: cfg.scale, y: cfg.scale, z: cfg.scale, duration: 1.5, ease: 'power3.inOut' });
+      gsap.to(shell.material, { opacity: cfg.shell, duration: .9 });
+      gsap.to(wire.material, { opacity: cfg.shell * .16, duration: .9 });
+      gsap.to(core.scale, { x: cfg.core, y: cfg.core, z: cfg.core, duration: 1.1, ease: 'power3.inOut' });
+      rings.forEach((ring, index) => gsap.to(ring.scale, { x: cfg.rings * (1 + index * .02), y: cfg.rings * (1 + index * .02), z: cfg.rings, duration: 1.2, ease: 'power3.inOut' }));
+      gsap.to(bloom, { strength: mobile ? cfg.bloom * .72 : cfg.bloom, duration: 1 });
+    } else {
+      engine.position.x = desiredX;
+      engine.scale.setScalar(cfg.scale);
+    }
+    particleMaterial.color.set(state === 2 || state === 8 ? 0xff8a5f : state === 3 ? 0x8da1ff : 0xbfc5d2);
+    activeState = state;
+  };
+
+  const scenes = [...document.querySelectorAll('.scene')];
+  scenes.forEach((section, index) => {
+    if (ScrollTrigger) {
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top 54%',
+        end: 'bottom 46%',
+        onEnter: () => applyState(index),
+        onEnterBack: () => applyState(index)
+      });
+    } else {
+      const observer = new IntersectionObserver(([entry]) => entry.isIntersecting && applyState(index), { threshold: .55 });
+      observer.observe(section);
     }
   });
+
+  if (ScrollTrigger) {
+    ScrollTrigger.create({
+      start: 0,
+      end: 'max',
+      onUpdate: (self) => {
+        gsap.set('.progress i b', { height: `${self.progress * 100}%` });
+        const sectionIndex = Math.min(8, Math.floor(self.progress * 9));
+        document.querySelector('.progress__current').textContent = String(sectionIndex + 1).padStart(2, '0');
+      }
+    });
+  }
+
+  const clock = new THREE.Clock();
+  const raycaster = new THREE.Raycaster();
+  const pointerVector = new THREE.Vector2();
+  const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+  const pointerWorld = new THREE.Vector3(999, 999, 999);
+
+  const animate = () => {
+    requestAnimationFrame(animate);
+    const elapsed = clock.getElapsedTime();
+    pointer.x += (pointer.tx - pointer.x) * .055;
+    pointer.y += (pointer.ty - pointer.y) * .055;
+    pointerVector.set(pointer.x, pointer.y);
+    raycaster.setFromCamera(pointerVector, camera);
+    raycaster.ray.intersectPlane(plane, pointerWorld);
+
+    const attr = particlesGeometry.attributes.position;
+    const pos = attr.array;
+    for (let i = 0; i < COUNT; i++) {
+      const index = i * 3;
+      let tx = targets[index];
+      let ty = targets[index + 1];
+      const tz = targets[index + 2];
+      const wave = Math.sin(elapsed * .7 + i * .017) * .006;
+      tx += wave * (seeds[i * 4] - .5) * 10;
+      ty += wave * (seeds[i * 4 + 1] - .5) * 10;
+      const dx = pos[index] + engine.position.x - pointerWorld.x;
+      const dy = pos[index + 1] - pointerWorld.y;
+      const distanceSq = dx * dx + dy * dy;
+      if (!mobile && distanceSq < 1.9) {
+        const force = (1.9 - distanceSq) * .035;
+        tx += dx * force;
+        ty += dy * force;
+      }
+      pos[index] += (tx - pos[index]) * .035;
+      pos[index + 1] += (ty - pos[index + 1]) * .035;
+      pos[index + 2] += (tz - pos[index + 2]) * .035;
+    }
+    attr.needsUpdate = true;
+
+    engine.rotation.y += ((pointer.x * .14) - engine.rotation.y) * .025;
+    engine.rotation.x += ((-pointer.y * .08) - engine.rotation.x) * .025;
+    shell.rotation.z += .0018;
+    wire.rotation.z -= .0012;
+    core.rotation.x += .006;
+    core.rotation.y -= .004;
+    core.scale.multiplyScalar(1 + Math.sin(elapsed * 2.1) * .0008);
+    rings.forEach((ring, index) => {
+      ring.rotation.z += (index % 2 ? -.0018 : .0014) * (index + 1);
+      ring.rotation.y += .0007 * (index + 1);
+    });
+    shards.forEach((shard, index) => {
+      shard.rotation.x += .002 + index * .0002;
+      shard.rotation.y -= .0015 + index * .0001;
+    });
+    orangeLight.intensity = 33 + Math.sin(elapsed * 2.4) * 7 + (activeState === 8 ? 10 : 0);
+    composer.render();
+  };
+
+  addEventListener('resize', () => {
+    const ratio = Math.min(devicePixelRatio, innerWidth < 720 ? 1.25 : 1.75);
+    renderer.setPixelRatio(ratio);
+    renderer.setSize(innerWidth, innerHeight);
+    composer.setPixelRatio(ratio);
+    composer.setSize(innerWidth, innerHeight);
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    engine.position.x = innerWidth < 720 ? 0 : stateConfig[targetState].x;
+  });
+
+  applyState(0);
+  if (!reduced) animate(); else composer.render();
 }
 
-function intro() {
-  const prelude = document.querySelector('#prelude');
+const intro = () => {
+  const loader = document.querySelector('.preloader');
+  if (!loader) return;
   if (!gsap || reduced) {
-    prelude?.remove();
-    document.querySelectorAll('.hero-line,.hero-thesis,.hero-intro,.overline').forEach(el => el.style.opacity = 1);
+    loader.remove();
     return;
   }
-  const tl = gsap.timeline({ defaults: { ease: 'power4.inOut' } });
-  tl.from('.prelude-word span', { yPercent: 130, rotate: 25, stagger: .08, duration: 1.1 })
-    .from('.prelude-line i', { scaleX: 0, duration: .6 }, '-=.4')
-    .from('.prelude-line b', { opacity: 0, y: 10, duration: .5 }, '-=.3')
-    .to('.prelude-word span', { yPercent: -140, stagger: .06, duration: .9, delay: .25 })
-    .to('#prelude', { clipPath: 'inset(0 0 100% 0)', duration: 1 }, '-=.5')
-    .set('#prelude', { display: 'none' })
-    .from('.hero-line', { yPercent: 110, rotate: 4, stagger: .12, duration: 1.1 }, '-=.25')
-    .from('.hero-thesis > *', { y: 35, opacity: 0, stagger: .08, duration: .7 }, '-=.6')
-    .from('.hero-intro,.scroll-cue,.site-nav,.rail', { opacity: 0, y: 18, stagger: .05, duration: .6 }, '-=.45');
-}
+  const tl = gsap.timeline({ defaults: { ease: 'power3.inOut' } });
+  tl.to('.preloader__bar b', { x: '0%', duration: .8 })
+    .from('.preloader__center strong', { opacity: 0, y: 8, duration: .4 }, '-=.45')
+    .from('.preloader__center i', { scaleX: 0, duration: .5 }, '-=.35')
+    .to('.preloader', { clipPath: 'inset(0 0 100% 0)', duration: .8, delay: .15 })
+    .set('.preloader', { display: 'none' })
+    .from('.nav,.progress', { opacity: 0, duration: .45 }, '-=.15')
+    .from('.hero__copy > *,.engine-label,.scroll', { y: 28, opacity: 0, stagger: .08, duration: .75 }, '-=.35');
+};
+addEventListener('load', intro, { once: true });
+setTimeout(intro, 1800);
 
-if (gsap) {
-  gsap.utils.toArray('.manifesto-title span').forEach((line, i) => {
-    gsap.from(line, { xPercent: i % 2 ? 18 : -18, opacity: 0, scrollTrigger: { trigger: line, start: 'top 82%', end: 'top 46%', scrub: 1 } });
-  });
-  gsap.utils.toArray('.case-heading h2,.sound-copy h2,.growth-title,.thinking-head h2,.about-copy h2,.contact-copy h2').forEach((el) => {
-    gsap.from(el, { yPercent: 24, rotate: 2, opacity: 0, scrollTrigger: { trigger: el, start: 'top 85%', end: 'top 48%', scrub: 1 } });
-  });
-  gsap.utils.toArray('.essay-panel').forEach((el, i) => {
-    gsap.from(el, { y: 100 + i * 35, opacity: 0, scrollTrigger: { trigger: '.essay-strip', start: 'top 78%', end: 'top 42%', scrub: 1 } });
+if (gsap && ScrollTrigger && !reduced) {
+  gsap.utils.toArray('[data-reveal]').forEach((element) => {
+    if (element.closest('.hero')) return;
+    gsap.from(element, {
+      y: 46,
+      opacity: 0,
+      duration: .9,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: element, start: 'top 88%', once: true }
+    });
   });
 }
 
 const cursor = document.querySelector('.cursor');
 if (cursor && !reduced) {
-  addEventListener('pointermove', e => {
-    cursor.style.transform = `translate(${e.clientX}px,${e.clientY}px) translate(-50%,-50%)`;
+  addEventListener('pointermove', (event) => {
+    cursor.style.transform = `translate(${event.clientX}px,${event.clientY}px) translate(-50%,-50%)`;
   });
-  document.querySelectorAll('a').forEach(link => {
-    link.addEventListener('pointerenter', () => cursor.classList.add('active'));
-    link.addEventListener('pointerleave', () => cursor.classList.remove('active'));
+  document.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('pointerenter', () => cursor.classList.add('is-link'));
+    link.addEventListener('pointerleave', () => cursor.classList.remove('is-link'));
   });
 }
 
-document.querySelectorAll('.magnetic').forEach(el => {
-  el.addEventListener('pointermove', e => {
-    const r = el.getBoundingClientRect();
-    const x = e.clientX - r.left - r.width / 2;
-    const y = e.clientY - r.top - r.height / 2;
-    if (gsap) gsap.to(el, { x: x * .14, y: y * .2, duration: .35 });
+document.querySelectorAll('.magnetic').forEach((element) => {
+  element.addEventListener('pointermove', (event) => {
+    if (!gsap || innerWidth < 800) return;
+    const rect = element.getBoundingClientRect();
+    gsap.to(element, { x: (event.clientX - rect.left - rect.width / 2) * .13, y: (event.clientY - rect.top - rect.height / 2) * .16, duration: .3 });
   });
-  el.addEventListener('pointerleave', () => gsap && gsap.to(el, { x: 0, y: 0, duration: .6, ease: 'elastic.out(1,.4)' }));
+  element.addEventListener('pointerleave', () => gsap && gsap.to(element, { x: 0, y: 0, duration: .65, ease: 'elastic.out(1,.45)' }));
 });
-
-function animate(time = 0) {
-  mouse.x += (mouse.tx - mouse.x) * .035;
-  mouse.y += (mouse.ty - mouse.y) * .035;
-  camera.position.x += (mouse.x * .7 - camera.position.x) * .03;
-  camera.position.y += (-mouse.y * .45 - camera.position.y) * .03;
-  camera.lookAt(0, 0, 0);
-
-  shards.forEach((mesh, i) => {
-    const target = targetPositions[i];
-    const rot = targetRotations[i];
-    const speed = .026 + (i % 5) * .0025;
-    mesh.position.lerp(target, speed);
-    mesh.rotation.x += (rot.x - mesh.rotation.x) * .018;
-    mesh.rotation.y += (rot.y - mesh.rotation.y) * .018;
-    mesh.rotation.z += (rot.z - mesh.rotation.z) * .018;
-    const pulse = 1 + Math.sin(time * .0012 * mesh.userData.speed + i) * .07;
-    mesh.scale.setScalar(baseScales[i] * pulse);
-    if (activeScene === 2) mesh.rotation.z += .008 * mesh.userData.speed;
-    if (activeScene === 3) mesh.position.y += Math.sin(time * .002 + i * .6) * .012;
-    if (activeScene === 7) mesh.position.multiplyScalar(1.00015);
-  });
-  halo.rotation.z += .006;
-  world.rotation.y += (mouse.x * .12 - world.rotation.y) * .025;
-  world.rotation.x += (-mouse.y * .08 - world.rotation.x) * .025;
-  renderer.render(scene, camera);
-  requestAnimationFrame(animate);
-}
-
-addEventListener('resize', () => {
-  renderer.setSize(innerWidth, innerHeight);
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.75));
-  camera.aspect = innerWidth / innerHeight;
-  camera.updateProjectionMatrix();
-});
-
-setPattern(0);
-if (!reduced) requestAnimationFrame(animate); else renderer.render(scene, camera);
-addEventListener('load', intro, { once: true });
-setTimeout(intro, 2200);
