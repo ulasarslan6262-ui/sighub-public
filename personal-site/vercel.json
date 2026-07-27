@@ -2,13 +2,32 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/styles.css",
+      "destination": "https://cdn.jsdelivr.net/gh/ulasarslan6262-ui/sighub-public@08b4c85f3a2f387ca50294eaf34a0d206fda8aa5/personal-site/styles.css"
+    },
+    {
+      "source": "/app.js",
+      "destination": "https://cdn.jsdelivr.net/gh/ulasarslan6262-ui/sighub-public@08b4c85f3a2f387ca50294eaf34a0d206fda8aa5/personal-site/app.js"
+    },
+    {
+      "source": "/subpage.css",
+      "destination": "https://cdn.jsdelivr.net/gh/ulasarslan6262-ui/sighub-public@08b4c85f3a2f387ca50294eaf34a0d206fda8aa5/personal-site/subpage.css"
+    },
+    {
+      "source": "/subpage.js",
+      "destination": "https://cdn.jsdelivr.net/gh/ulasarslan6262-ui/sighub-public@08b4c85f3a2f387ca50294eaf34a0d206fda8aa5/personal-site/subpage.js"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "x-vercel-enable-rewrite-caching", "value": "1" }
       ]
     }
   ]
