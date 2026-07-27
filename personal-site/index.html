@@ -8,10 +8,10 @@
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
   <link rel="canonical" href="https://ulas-arslan.vercel.app/" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <meta name="theme-color" content="#090806" />
+  <meta name="theme-color" content="#050607" />
   <meta property="og:type" content="profile" />
   <meta property="og:title" content="Ulaş Arslan — Product Builder" />
-  <meta property="og:description" content="Products from friction. Systems from signals." />
+  <meta property="og:description" content="I build the missing layer between a signal and the action it should trigger." />
   <meta property="og:url" content="https://ulas-arslan.vercel.app/" />
   <meta property="og:image" content="https://ulas-arslan.vercel.app/og.svg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -21,230 +21,175 @@
   {
     "@context":"https://schema.org",
     "@graph":[
-      {
-        "@type":"WebSite",
-        "@id":"https://ulas-arslan.vercel.app/#website",
-        "url":"https://ulas-arslan.vercel.app/",
-        "name":"Ulaş Arslan",
-        "description":"Product builder and customer systems operator based in Rotterdam.",
-        "inLanguage":"en"
-      },
-      {
-        "@type":"ProfilePage",
-        "@id":"https://ulas-arslan.vercel.app/#profile",
-        "url":"https://ulas-arslan.vercel.app/",
-        "name":"Ulaş Arslan — Product Builder",
-        "dateModified":"2026-07-27",
-        "mainEntity":{"@id":"https://ulas-arslan.vercel.app/#person"}
-      },
-      {
-        "@type":"Person",
-        "@id":"https://ulas-arslan.vercel.app/#person",
-        "name":"Ulaş Arslan",
-        "alternateName":"Ulas Arslan",
-        "url":"https://ulas-arslan.vercel.app/",
-        "jobTitle":"Customer Experience Manager and Product Builder",
-        "homeLocation":{"@type":"Place","name":"Rotterdam, the Netherlands"},
-        "worksFor":{"@type":"Organization","name":"Speaksee","url":"https://speak-see.com"},
-        "owns":{"@type":"Organization","name":"Sighub","url":"https://sighub.io"},
-        "sameAs":["https://nl.linkedin.com/in/ulasarslan","https://sighub.io"],
-        "knowsAbout":["B2B product development","Customer experience operations","Customer systems","SaaS product building","Operational software","Product feedback systems","Practical automation"]
-      },
-      {
-        "@type":"SoftwareApplication",
-        "name":"Sighub Renewal Radar",
-        "applicationCategory":"BusinessApplication",
-        "operatingSystem":"Web",
-        "url":"https://sighub.io",
-        "description":"B2B software that turns fragmented renewal information into concrete follow-up actions.",
-        "creator":{"@id":"https://ulas-arslan.vercel.app/#person"}
-      }
+      {"@type":"WebSite","@id":"https://ulas-arslan.vercel.app/#website","url":"https://ulas-arslan.vercel.app/","name":"Ulaş Arslan","description":"Product builder and customer systems operator based in Rotterdam.","inLanguage":"en"},
+      {"@type":"ProfilePage","@id":"https://ulas-arslan.vercel.app/#profile","url":"https://ulas-arslan.vercel.app/","name":"Ulaş Arslan — Product Builder","dateModified":"2026-07-27","mainEntity":{"@id":"https://ulas-arslan.vercel.app/#person"}},
+      {"@type":"Person","@id":"https://ulas-arslan.vercel.app/#person","name":"Ulaş Arslan","alternateName":"Ulas Arslan","url":"https://ulas-arslan.vercel.app/","jobTitle":"Customer Experience Manager and Product Builder","homeLocation":{"@type":"Place","name":"Rotterdam, the Netherlands"},"worksFor":{"@type":"Organization","name":"Speaksee","url":"https://speak-see.com"},"owns":{"@type":"Organization","name":"Sighub","url":"https://sighub.io"},"sameAs":["https://nl.linkedin.com/in/ulasarslan","https://sighub.io"],"knowsAbout":["B2B product development","Customer experience operations","Customer systems","SaaS product building","Operational software","Product feedback systems","Practical automation"]},
+      {"@type":"SoftwareApplication","name":"Sighub Renewal Radar","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://sighub.io","description":"B2B software that turns fragmented renewal information into concrete follow-up actions.","creator":{"@id":"https://ulas-arslan.vercel.app/#person"}}
     ]
+  }
+  </script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.min.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+    }
   }
   </script>
 </head>
 <body>
-  <div id="prelude" aria-hidden="true">
-    <div class="prelude-grid"></div>
-    <div class="prelude-word"><span>U</span><span>L</span><span>A</span><span>Ş</span></div>
-    <div class="prelude-line"><i></i><b>PRODUCTS FROM FRICTION</b><i></i></div>
+  <div class="preloader" aria-hidden="true">
+    <div class="preloader__top"><span>U/A</span><span>ROTTERDAM · NL</span></div>
+    <div class="preloader__center"><i></i><strong>CONSTRAINT ENGINE</strong><i></i></div>
+    <div class="preloader__bar"><b></b></div>
   </div>
 
-  <div class="cursor" aria-hidden="true"><i></i><b></b></div>
-  <canvas id="world" aria-hidden="true"></canvas>
-  <div class="grain" aria-hidden="true"></div>
-  <div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <canvas id="experience" aria-hidden="true"></canvas>
+  <div class="ambient" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><span></span></div>
 
-  <header class="site-nav">
-    <a class="monogram magnetic" href="#origin" aria-label="Back to top"><span>U</span><i>/</i><span>A</span></a>
+  <header class="nav">
+    <a class="nav__mark magnetic" href="#top" aria-label="Back to top">U/A</a>
     <nav aria-label="Primary navigation">
-      <a href="#work">WORK</a>
-      <a href="#thinking">THINKING</a>
-      <a href="#about">ABOUT</a>
-      <a href="#contact">CONTACT</a>
+      <a href="#work">Work</a>
+      <a href="#thinking">Thinking</a>
+      <a href="#about">About</a>
     </nav>
-    <div class="nav-meta"><span>ROTTERDAM</span><span>2026</span></div>
+    <a class="nav__contact magnetic" href="mailto:hello@sighub.io">Contact ↗</a>
   </header>
 
-  <aside class="rail" aria-label="Page progress">
-    <span class="rail-number">01</span>
-    <i class="rail-track"><b></b></i>
-    <span class="rail-total">07</span>
+  <aside class="progress" aria-label="Page progress">
+    <span class="progress__current">01</span>
+    <i><b></b></i>
+    <span>09</span>
   </aside>
 
-  <main>
-    <section class="scene hero" id="origin" data-scene="0" data-tone="ink">
-      <div class="hero-collage" aria-hidden="true">
-        <span class="shape shape-a"></span>
-        <span class="shape shape-b"></span>
-        <span class="shape shape-c"></span>
-        <span class="shape shape-d"></span>
+  <main id="top">
+    <section class="scene hero" data-state="0" data-label="ORIGIN">
+      <div class="scene__meta"><span>PRODUCT BUILDER</span><span>CUSTOMER SYSTEMS</span><span>ROTTERDAM</span></div>
+      <div class="hero__copy" data-reveal>
+        <p class="eyebrow">Ulaş Arslan · Product builder & Customer Experience Manager</p>
+        <h1>I build the<br><em>missing layer.</em></h1>
+        <p class="hero__lede">Between a signal and the action it should trigger.</p>
       </div>
-      <div class="scene-index">00 — ORIGIN</div>
-      <div class="hero-copy">
-        <p class="overline">PRODUCT BUILDER · CUSTOMER SYSTEMS · ROTTERDAM</p>
-        <h1>
-          <span class="hero-line line-one">ULAŞ</span>
-          <span class="hero-line line-two">ARSLAN</span>
-        </h1>
-        <div class="hero-thesis">
-          <strong>PRODUCTS</strong>
-          <span>FROM</span>
-          <em>FRICTION.</em>
-        </div>
-        <p class="hero-intro">I find the operational problem hiding in plain sight, reduce it to a clear decision, and build the missing product around it.</p>
+      <div class="engine-label" aria-hidden="true">
+        <span>CONSTRAINT ENGINE / 01</span>
+        <i></i>
+        <span>LIVE SYSTEM</span>
       </div>
-      <div class="scroll-cue"><span>SCROLL TO REARRANGE THE SYSTEM</span><i></i></div>
+      <a class="scroll magnetic" href="#thesis"><span>Enter the system</span><b>↓</b></a>
     </section>
 
-    <section class="scene manifesto" id="manifesto" data-scene="1" data-tone="bone">
-      <div class="scene-index">01 — MANIFESTO</div>
-      <div class="manifesto-grid">
-        <p class="manifesto-small">MY WORK SITS BETWEEN<br>PRODUCT, OPERATIONS<br>AND CUSTOMER EXPERIENCE.</p>
-        <h2 class="manifesto-title">
-          <span>MOST SYSTEMS</span>
-          <span>DO NOT FAIL</span>
-          <span>BECAUSE DATA</span>
-          <span>IS MISSING.</span>
-        </h2>
-        <div class="manifesto-cut">
-          <p>They fail because the signal never becomes somebody’s next move.</p>
-          <span class="slash">/</span>
-          <p>That last mile is where I build.</p>
+    <section class="scene thesis" id="thesis" data-state="1" data-label="THESIS">
+      <div class="section-count">01</div>
+      <div class="section-grid">
+        <p class="eyebrow" data-reveal>THE THESIS</p>
+        <h2 data-reveal>Operational problems rarely arrive as product ideas.</h2>
+        <div class="section-copy" data-reveal>
+          <p>They arrive as repeated manual work, information nobody acts on, unclear ownership, or a customer problem that keeps returning in a different form.</p>
+          <p>I work on that last mile: turning observable friction into a clear decision, then building the system that makes the decision easier.</p>
         </div>
       </div>
+      <div class="statement" data-reveal>NOISE <span>→</span> SIGNAL <span>→</span> DECISION <span>→</span> SYSTEM</div>
     </section>
 
-    <section class="scene case case-sighub" id="work" data-scene="2" data-tone="blue">
-      <div class="scene-index">02 — PRODUCT</div>
-      <div class="case-layout">
-        <div class="case-number">01</div>
-        <div class="case-heading">
-          <p class="overline">LIVE B2B PRODUCT · BUILT END TO END</p>
-          <h2>SIGHUB<br><em>RENEWAL RADAR</em></h2>
-        </div>
-        <div class="case-copy">
-          <p class="case-lead">Renewal risk is often visible before it becomes expensive. The evidence is simply scattered across dates, activity, ownership and commercial context.</p>
-          <p>Sighub turns those fragments into one concrete follow-up action. The core is deterministic workflow logic, not a generic AI score. It is designed to focus attention, not create another dashboard.</p>
-          <a class="text-link magnetic" href="https://sighub.io">VISIT SIGHUB <span>↗</span></a>
-        </div>
-        <dl class="case-facts">
-          <div><dt>INPUT</dt><dd>EXISTING COMMERCIAL DATA</dd></div>
-          <div><dt>DETECTION</dt><dd>TIMING + RISK SIGNALS</dd></div>
-          <div><dt>OUTPUT</dt><dd>ONE OWNED ACTION</dd></div>
-          <div><dt>STATUS</dt><dd>LIVE · EXTERNAL TESTING</dd></div>
-        </dl>
+    <section class="scene work work--sighub" id="work" data-state="2" data-label="PRODUCT">
+      <div class="section-count">02</div>
+      <div class="case-head" data-reveal>
+        <p class="eyebrow">LIVE B2B PRODUCT · BUILT END TO END</p>
+        <h2>Sighub<br><em>Renewal Radar</em></h2>
       </div>
+      <div class="case-body" data-reveal>
+        <p class="case-lead">Renewal risk is often visible before it becomes expensive. The evidence is simply scattered.</p>
+        <p>Sighub turns dates, activity, ownership and commercial context into one concrete follow-up action. The core is deterministic workflow logic, not a generic AI score.</p>
+        <a class="line-link magnetic" href="https://sighub.io">Visit Sighub <span>↗</span></a>
+      </div>
+      <dl class="facts" data-reveal>
+        <div><dt>INPUT</dt><dd>Existing commercial data</dd></div>
+        <div><dt>DETECTION</dt><dd>Timing and risk signals</dd></div>
+        <div><dt>OUTPUT</dt><dd>One owned action</dd></div>
+        <div><dt>STATUS</dt><dd>Live · external testing</dd></div>
+      </dl>
     </section>
 
-    <section class="scene case case-speaksee" data-scene="3" data-tone="red">
-      <div class="scene-index">03 — OPERATING SYSTEM</div>
-      <div class="split-stage">
-        <div class="vertical-word" aria-hidden="true">SIGNAL</div>
-        <div class="sound-copy">
-          <p class="overline">CUSTOMER EXPERIENCE MANAGER · SPEAKSEE</p>
-          <h2>SOUND<br>TO SYSTEM.</h2>
-          <p>At Speaksee, an accessibility technology company, I work across support operations, knowledge, onboarding, product feedback and retention signals for a journey that includes both hardware and software.</p>
-          <p>The job is not only resolving what happened. It is making recurring friction legible enough for the organisation to improve the product and the customer journey.</p>
-        </div>
-        <div class="caption-stack" aria-label="Customer signal flow">
-          <div><span>01</span><strong>SUPPORT SIGNAL</strong><i>REPEATED FRICTION</i></div>
-          <div><span>02</span><strong>CLEAR CONTEXT</strong><i>WHAT ACTUALLY HAPPENED</i></div>
-          <div><span>03</span><strong>PRODUCT FEEDBACK</strong><i>OWNED NEXT MOVE</i></div>
-        </div>
+    <section class="scene work work--speaksee" data-state="3" data-label="OPERATING SYSTEM">
+      <div class="section-count">03</div>
+      <div class="case-head case-head--narrow" data-reveal>
+        <p class="eyebrow">CUSTOMER EXPERIENCE MANAGER · SPEAKSEE</p>
+        <h2>From customer<br><em>signal to system.</em></h2>
+      </div>
+      <div class="case-body" data-reveal>
+        <p class="case-lead">A resolved ticket is useful. A recurring problem made visible to the organisation is more valuable.</p>
+        <p>At Speaksee, an accessibility technology company, I work across support operations, knowledge, onboarding, product feedback and retention signals in a customer journey that includes both hardware and software.</p>
+      </div>
+      <div class="signal-flow" data-reveal>
+        <span>Support signal</span><i></i><span>Clear context</span><i></i><span>Owned improvement</span>
       </div>
     </section>
 
-    <section class="scene case case-litebit" data-scene="4" data-tone="yellow">
-      <div class="scene-index">04 — LEADERSHIP</div>
-      <div class="growth-stage">
-        <div class="growth-title">
-          <span>VOLUME</span>
-          <span>EXPOSES</span>
-          <em>THE SYSTEM.</em>
-        </div>
-        <div class="growth-copy">
-          <p class="overline">CUSTOMER SUPPORT LEADERSHIP · LITEBIT</p>
-          <p>Leading customer support during rapid organisational growth taught me that scale does not fix ambiguity. It multiplies it.</p>
-          <p>Clear ownership, judgment and repeatable systems matter more as volume rises. That experience still shapes how I build products today.</p>
-        </div>
-        <div class="growth-axis" aria-hidden="true"><span>PEOPLE</span><i></i><b></b><em>COMPLEXITY</em></div>
+    <section class="scene work work--litebit" data-state="4" data-label="LEADERSHIP">
+      <div class="section-count">04</div>
+      <div class="case-head" data-reveal>
+        <p class="eyebrow">CUSTOMER SUPPORT LEADERSHIP · LITEBIT</p>
+        <h2>Volume exposes<br><em>the system.</em></h2>
       </div>
+      <div class="case-body" data-reveal>
+        <p class="case-lead">Scale does not remove ambiguity. It multiplies it.</p>
+        <p>Leading customer support during rapid organisational growth taught me that clear ownership, judgment and repeatable systems become more important as volume rises. That experience still shapes how I build.</p>
+      </div>
+      <div class="scale-axis" data-reveal><span>PEOPLE</span><i><b></b></i><span>COMPLEXITY</span></div>
     </section>
 
-    <section class="scene thinking" id="thinking" data-scene="5" data-tone="ink">
-      <div class="scene-index">05 — POINT OF VIEW</div>
-      <div class="thinking-head">
-        <p class="overline">ORIGINAL THINKING · BUILT FROM PRACTICE</p>
-        <h2>THE WORK<br>NEEDS A VOICE.</h2>
-      </div>
-      <div class="essay-strip">
-        <a class="essay-panel" href="/writing/signals-before-dashboards.html">
-          <span>01</span>
-          <h3>SIGNALS BEFORE DASHBOARDS</h3>
-          <p>Information becomes operational only when it changes what happens next.</p>
-          <i>READ ESSAY ↗</i>
-        </a>
-        <a class="essay-panel inverse" href="/writing/the-last-mile.html">
-          <span>02</span>
-          <h3>THE LAST MILE OF OPERATIONAL SOFTWARE</h3>
-          <p>Detection is incomplete without ownership, context and changed behaviour.</p>
-          <i>READ ESSAY ↗</i>
-        </a>
-        <a class="essay-panel" href="/writing/build-before-scale.html">
-          <span>03</span>
-          <h3>BUILD BEFORE SCALE, BUT NOT FOREVER</h3>
-          <p>Build enough to deserve a real test. Then let the test edit the product.</p>
-          <i>READ ESSAY ↗</i>
-        </a>
-      </div>
-    </section>
-
-    <section class="scene about" id="about" data-scene="6" data-tone="bone">
-      <div class="scene-index">06 — ABOUT</div>
-      <div class="about-stage">
-        <div class="about-mask" aria-hidden="true">
-          <span>U</span><i></i><b>A</b><em></em>
+    <section class="scene principles" data-state="5" data-label="METHOD">
+      <div class="section-count">05</div>
+      <div class="section-grid section-grid--principles">
+        <div>
+          <p class="eyebrow" data-reveal>HOW I WORK</p>
+          <h2 data-reveal>Useful before impressive.</h2>
         </div>
-        <div class="about-copy">
-          <p class="overline">OPERATOR BY EXPERIENCE · BUILDER BY INSTINCT</p>
-          <h2>I DO NOT WANT<br>TO BE KNOWN FOR<br><em>ONE TOOL.</em></h2>
-          <p>I am Ulaş Arslan, a Rotterdam-based product builder and Customer Experience Manager. I like problems that are already costing time or trust, but have not yet been turned into a clear system.</p>
-          <p>I want to be known for seeing the real constraint, building something useful around it, and letting reality improve the work.</p>
-          <a class="text-link magnetic" href="/about.html">FULL PROFILE <span>↗</span></a>
+        <div class="principle-list">
+          <article data-reveal><span>01</span><h3>Observe the friction.</h3><p>Start with a repeated problem in real work, not a fashionable category.</p></article>
+          <article data-reveal><span>02</span><h3>Reduce the decision.</h3><p>Make the next move clearer instead of shifting interpretation to another dashboard.</p></article>
+          <article data-reveal><span>03</span><h3>Let reality edit.</h3><p>Ship, observe, adjust and stop work that no longer earns its time.</p></article>
         </div>
       </div>
     </section>
 
-    <section class="scene contact" id="contact" data-scene="7" data-tone="red">
-      <div class="scene-index">07 — NEXT MOVE</div>
-      <div class="contact-copy">
-        <p class="overline">BUILDERS · OPERATORS · STUBBORN PROBLEMS</p>
-        <h2>WHAT IS THE<br>REAL CONSTRAINT?</h2>
-        <div class="contact-actions">
-          <a class="contact-link magnetic" href="mailto:hello@sighub.io"><span>START A CONVERSATION</span><b>↗</b></a>
-          <a class="contact-link magnetic" href="https://nl.linkedin.com/in/ulasarslan"><span>LINKEDIN</span><b>↗</b></a>
-        </div>
+    <section class="scene writing" id="thinking" data-state="6" data-label="THINKING">
+      <div class="section-count">06</div>
+      <div class="writing-head" data-reveal>
+        <p class="eyebrow">ORIGINAL THINKING · BUILT FROM PRACTICE</p>
+        <h2>The work needs<br><em>a point of view.</em></h2>
+      </div>
+      <div class="essay-list">
+        <a href="/writing/signals-before-dashboards.html" data-reveal><span>01</span><div><h3>Signals before dashboards</h3><p>Information becomes operational only when it changes what happens next.</p></div><b>↗</b></a>
+        <a href="/writing/the-last-mile.html" data-reveal><span>02</span><div><h3>The last mile of operational software</h3><p>Detection is incomplete without ownership, context and changed behaviour.</p></div><b>↗</b></a>
+        <a href="/writing/build-before-scale.html" data-reveal><span>03</span><div><h3>Build before scale, but not forever</h3><p>Build enough to deserve a real test. Then let the test edit the product.</p></div><b>↗</b></a>
+      </div>
+    </section>
+
+    <section class="scene about" id="about" data-state="7" data-label="ABOUT">
+      <div class="section-count">07</div>
+      <div class="about-copy" data-reveal>
+        <p class="eyebrow">OPERATOR BY EXPERIENCE · BUILDER BY INSTINCT</p>
+        <h2>I do not want to be known for <em>one tool.</em></h2>
+        <p>I am Ulaş Arslan, a Rotterdam-based product builder and Customer Experience Manager. I like problems that are already costing time or trust, but have not yet been turned into a clear system.</p>
+        <p>Sighub is proof of how I work, not the limit of what I want to build.</p>
+        <a class="line-link magnetic" href="/about.html">Full profile <span>↗</span></a>
+      </div>
+      <div class="about-signature" aria-hidden="true"><span>U</span><i>/</i><span>A</span></div>
+    </section>
+
+    <section class="scene contact" id="contact" data-state="8" data-label="NEXT MOVE">
+      <div class="section-count">08</div>
+      <div class="contact-copy" data-reveal>
+        <p class="eyebrow">BUILDERS · OPERATORS · STUBBORN PROBLEMS</p>
+        <h2>What is the<br><em>real constraint?</em></h2>
+      </div>
+      <div class="contact-links" data-reveal>
+        <a class="magnetic" href="mailto:hello@sighub.io"><span>Start a conversation</span><b>↗</b></a>
+        <a class="magnetic" href="https://nl.linkedin.com/in/ulasarslan"><span>LinkedIn</span><b>↗</b></a>
       </div>
       <footer>
         <span>Ulaş Arslan</span>
