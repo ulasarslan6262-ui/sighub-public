@@ -1,0 +1,24 @@
+/* The WebGL world lives above each scene's colour field, but below all readable content. */
+main { z-index: auto; }
+.scene { isolation: auto; }
+.scene > *:not(.hero-collage) { position: relative; z-index: 3; }
+.hero-collage { z-index: 2; }
+#world { z-index: 1; opacity: .82; }
+
+/* Make the colour fields react to the moving sculptures instead of hiding them. */
+.manifesto { background: rgba(242, 234, 219, .94); }
+.case-sighub { background: rgba(23, 70, 209, .91); }
+.case-speaksee { background: rgba(240, 66, 50, .92); }
+.case-litebit { background: rgba(244, 214, 70, .93); }
+.thinking { background: rgba(9, 8, 6, .92); }
+.about { background: rgba(242, 234, 219, .94); }
+.contact { background: rgba(240, 66, 50, .92); }
+
+/* If WebGL or a third-party animation library cannot initialise, never trap the visitor. */
+html.visual-fallback body { cursor: auto; }
+html.visual-fallback .cursor { display: none; }
+
+@media (max-width: 640px) {
+  #world { opacity: .62; }
+  .manifesto, .case-sighub, .case-speaksee, .case-litebit, .thinking, .about, .contact { backdrop-filter: blur(1px); }
+}
