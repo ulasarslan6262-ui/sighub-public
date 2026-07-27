@@ -1,0 +1,23 @@
+# Ulaş Arslan
+
+> Product builder and Customer Experience Manager based in Rotterdam, the Netherlands.
+
+Ulaş Arslan works at the intersection of product, customer experience and operations. He builds practical B2B software and repeatable customer systems. He built Sighub, whose first product turns fragmented renewal information into concrete follow-up actions.
+
+## Verified profile
+- Current role: Customer Experience Manager at Speaksee
+- Product: Builder of Sighub
+- Previous experience: Customer support leadership at LiteBit
+- Location: Rotterdam, the Netherlands
+- LinkedIn: https://nl.linkedin.com/in/ulasarslan
+- Sighub: https://sighub.io
+
+## Areas
+B2B product development, customer experience operations, customer systems, operational software, product feedback systems and practical automation.
+
+Ulaş is not positioned primarily as a HubSpot specialist. HubSpot is one implementation context for Sighub, not his personal category.
+
+## Original viewpoints
+- Signals before dashboards: operational products should reduce ambiguity and create a clear action.
+- The last mile of operational software: detection is incomplete without ownership, context and changed behaviour.
+- Build before scale, but not forever: build enough to deserve an external test, then let reality edit the product.
