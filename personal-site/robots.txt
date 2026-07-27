@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ulas-arslan.vercel.app/sitemap.xml
