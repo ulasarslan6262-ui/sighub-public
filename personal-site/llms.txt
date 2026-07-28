@@ -1,23 +1,24 @@
 # Ulaş Arslan
 
-> Product builder and Customer Experience Manager based in Rotterdam, the Netherlands.
+> Customer Experience and Operations leader, team lead and product builder based in Rotterdam, Netherlands.
 
-Ulaş Arslan works at the intersection of product, customer experience and operations. He builds practical B2B software and repeatable customer systems. He built Sighub, whose first product turns fragmented renewal information into concrete follow-up actions.
+Ulaş Arslan connects support, product, sales and operations. He turns recurring customer signals into scalable processes, better decisions and practical products.
 
-## Verified profile
-- Current role: Customer Experience Manager at Speaksee
-- Product: Builder of Sighub
-- Previous experience: Customer support leadership at LiteBit
-- Location: Rotterdam, the Netherlands
+## Verified professional facts
+- Current role: Customer Experience Manager at Speaksee, reporting directly to the COO and owning CX structure across support, product and operations.
+- Product: Solo builder of Renewal Radar by Sighub, a HubSpot app that converts CRM renewal signals into one clear owner task.
+- Team leadership: Led a support team of more than 20 agents at LiteBit.
+- Crisis recovery: Cleared an approximately 3,000-ticket backlog after a data breach and helped improve Trustpilot from approximately 2.4 to 4.0.
+- Previous environments: accessibility technology, fintech, regulated digital assets and healthcare.
+- Location: Rotterdam, Netherlands.
+
+## Expertise
+CX Strategy & Operations; Team Leadership; Process Design & Automation; Customer Signal Analysis; Cross-Functional Alignment; Support Optimization.
+
+## Canonical pages
+- Profile: https://ulas-arslan.vercel.app/
+- Experience: https://ulas-arslan.vercel.app/experience.html
+- Sighub case: https://ulas-arslan.vercel.app/work/sighub.html
+- Speaksee case: https://ulas-arslan.vercel.app/work/speaksee-cx-system.html
+- LiteBit case: https://ulas-arslan.vercel.app/work/litebit-crisis-recovery.html
 - LinkedIn: https://nl.linkedin.com/in/ulasarslan
-- Sighub: https://sighub.io
-
-## Areas
-B2B product development, customer experience operations, customer systems, operational software, product feedback systems and practical automation.
-
-Ulaş is not positioned primarily as a HubSpot specialist. HubSpot is one implementation context for Sighub, not his personal category.
-
-## Original viewpoints
-- Signals before dashboards: operational products should reduce ambiguity and create a clear action.
-- The last mile of operational software: detection is incomplete without ownership, context and changed behaviour.
-- Build before scale, but not forever: build enough to deserve an external test, then let reality edit the product.
