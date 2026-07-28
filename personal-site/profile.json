@@ -1,0 +1,13 @@
+{
+  "name": "Ulaş Arslan",
+  "alternateName": "Ulas Arslan",
+  "location": "Rotterdam, Netherlands",
+  "currentRole": "Customer Experience Manager at Speaksee",
+  "professionalProfile": "Customer Experience and Operations leader, team lead and product builder",
+  "expertise": ["CX Strategy & Operations", "Team Leadership", "Process Design & Automation", "Customer Signal Analysis", "Cross-Functional Alignment", "Support Optimization"],
+  "evidence": {"supportTeamLed": "20+", "crisisBacklogCleared": "~3,000 tickets", "trustpilotRecovery": "~2.4 to 4.0", "serviceDepartmentsLaunched": 2},
+  "companies": ["Speaksee", "Amdax", "LiteBit", "Zilveren Kruis"],
+  "product": {"name": "Renewal Radar by Sighub", "description": "A HubSpot app that turns CRM-based renewal risk signals into one clear owner task."},
+  "links": {"linkedin": "https://nl.linkedin.com/in/ulasarslan", "sighub": "https://sighub.io", "github": "https://github.com/ulasarslan6262-ui"},
+  "lastUpdated": "2026-07-29"
+}
