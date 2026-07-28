@@ -22,3 +22,9 @@ CX Strategy & Operations; Team Leadership; Process Design & Automation; Customer
 - Speaksee case: https://ulas-arslan.vercel.app/work/speaksee-cx-system.html
 - LiteBit case: https://ulas-arslan.vercel.app/work/litebit-crisis-recovery.html
 - LinkedIn: https://nl.linkedin.com/in/ulasarslan
+
+## Work history
+Speaksee (Customer Experience Manager, Aug 2024-present); Amdax (Customer Success Coordinator, Feb-Jun 2024); LiteBit (Customer Support Team Lead, Mar 2021-Oct 2023; Customer Support / Social Media Marketeer, Apr 2018-Mar 2021); Zilveren Kruis (AR Service Associate, May 2016-Apr 2018).
+
+## Tooling
+HubSpot, Zendesk, Intercom, Mixpanel, Miro, Jira, Notion, Slack and AI tooling.
