@@ -1,0 +1,30 @@
+# Ulaş Arslan
+
+> Customer Experience and Operations leader, team lead and product builder based in Rotterdam, Netherlands.
+
+Ulaş Arslan connects support, product, sales and operations. He turns recurring customer signals into scalable processes, better decisions and practical products.
+
+## Verified professional facts
+- Current role: Customer Experience Manager at Speaksee, reporting directly to the COO and owning CX structure across support, product and operations.
+- Product: Solo builder of Renewal Radar by Sighub, a HubSpot app that converts CRM renewal signals into one clear owner task.
+- Team leadership: Led a support team of more than 20 agents at LiteBit.
+- Crisis recovery: Cleared an approximately 3,000-ticket backlog after a data breach and helped improve Trustpilot from approximately 2.4 to 4.0.
+- Previous environments: accessibility technology, fintech, regulated digital assets and healthcare.
+- Location: Rotterdam, Netherlands.
+
+## Expertise
+CX Strategy & Operations; Team Leadership; Process Design & Automation; Customer Signal Analysis; Cross-Functional Alignment; Support Optimization.
+
+## Canonical pages
+- Profile: https://ulas-arslan.vercel.app/
+- Experience: https://ulas-arslan.vercel.app/experience.html
+- Sighub case: https://ulas-arslan.vercel.app/work/sighub.html
+- Speaksee case: https://ulas-arslan.vercel.app/work/speaksee-cx-system.html
+- LiteBit case: https://ulas-arslan.vercel.app/work/litebit-crisis-recovery.html
+- LinkedIn: https://nl.linkedin.com/in/ulasarslan
+
+## Work history
+Speaksee (Customer Experience Manager, Aug 2024-present); Amdax (Customer Success Coordinator, Feb-Jun 2024); LiteBit (Customer Support Team Lead, Mar 2021-Oct 2023; Customer Support / Social Media Marketeer, Apr 2018-Mar 2021); Zilveren Kruis (AR Service Associate, May 2016-Apr 2018).
+
+## Tooling
+HubSpot, Zendesk, Intercom, Mixpanel, Miro, Jira, Notion, Slack and AI tooling.
