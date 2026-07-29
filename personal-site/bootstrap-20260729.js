@@ -1,3 +1,5 @@
+window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};
+if(!document.querySelector('script[data-vercel-analytics]')){const analyticsScript=document.createElement('script');analyticsScript.defer=true;analyticsScript.src='/_vercel/insights/script.js';analyticsScript.dataset.vercelAnalytics='true';document.head.appendChild(analyticsScript)}
 clearTimeout(window.__siteFallback);
 document.documentElement.classList.remove('js-fallback');
 document.querySelectorAll('.reveal').forEach((element)=>element.classList.add('is-visible'));
