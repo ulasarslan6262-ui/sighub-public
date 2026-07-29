@@ -3,77 +3,23 @@
   "@graph": [
     {
       "@type": "Person",
-      "@id": "https://ulas-arslan.vercel.app/#person",
+      "@id": "https://www.ulasarslan.com/#person",
       "name": "Ulaş Arslan",
       "alternateName": "Ulas Arslan",
-      "url": "https://ulas-arslan.vercel.app/",
+      "url": "https://www.ulasarslan.com/",
       "jobTitle": "Customer Experience Manager and Product Builder",
       "homeLocation": {"@type":"Place","name":"Rotterdam, Netherlands"},
       "worksFor": {"@id":"https://speak-see.com/#organization"},
       "owns": {"@id":"https://sighub.io/#organization"},
-      "sameAs": [
-        "https://nl.linkedin.com/in/ulasarslan",
-        "https://github.com/ulasarslan6262-ui",
-        "https://sighub.io"
-      ],
-      "knowsAbout": [
-        "Customer Experience Strategy",
-        "Customer Operations",
-        "Team Leadership",
-        "Support Optimization",
-        "Process Design and Automation",
-        "Customer Signal Analysis",
-        "Cross-Functional Alignment",
-        "B2B SaaS Product Development"
-      ]
+      "sameAs": ["https://nl.linkedin.com/in/ulasarslan","https://github.com/ulasarslan6262-ui","https://sighub.io"],
+      "knowsAbout": ["Customer Experience Strategy","Customer Operations","Team Leadership","Support Optimization","Process Design and Automation","Customer Signal Analysis","Cross-Functional Alignment","B2B SaaS Product Development"]
     },
-    {
-      "@type": "Organization",
-      "@id": "https://speak-see.com/#organization",
-      "name": "Speaksee",
-      "url": "https://speak-see.com"
-    },
-    {
-      "@type": "Organization",
-      "@id": "https://sighub.io/#organization",
-      "name": "Sighub",
-      "url": "https://sighub.io",
-      "founder": {"@id":"https://ulas-arslan.vercel.app/#person"}
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": "https://sighub.io/#renewal-radar",
-      "name": "Renewal Radar by Sighub",
-      "url": "https://sighub.io",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Web",
-      "description": "A HubSpot app that turns structured CRM renewal risk signals into one clear owner task using deterministic, auditable logic.",
-      "creator": {"@id":"https://ulas-arslan.vercel.app/#person"},
-      "subjectOf": {"@id":"https://ulas-arslan.vercel.app/work/sighub.html#case"}
-    },
-    {
-      "@type": "Article",
-      "@id": "https://ulas-arslan.vercel.app/work/sighub.html#case",
-      "headline": "Sighub Renewal Radar case study",
-      "url": "https://ulas-arslan.vercel.app/work/sighub.html",
-      "author": {"@id":"https://ulas-arslan.vercel.app/#person"},
-      "about": {"@id":"https://sighub.io/#renewal-radar"}
-    },
-    {
-      "@type": "Article",
-      "@id": "https://ulas-arslan.vercel.app/work/speaksee-cx-system.html#case",
-      "headline": "Speaksee CX infrastructure case study",
-      "url": "https://ulas-arslan.vercel.app/work/speaksee-cx-system.html",
-      "author": {"@id":"https://ulas-arslan.vercel.app/#person"},
-      "about": {"@id":"https://speak-see.com/#organization"}
-    },
-    {
-      "@type": "Article",
-      "@id": "https://ulas-arslan.vercel.app/work/litebit-crisis-recovery.html#case",
-      "headline": "LiteBit crisis recovery case study",
-      "url": "https://ulas-arslan.vercel.app/work/litebit-crisis-recovery.html",
-      "author": {"@id":"https://ulas-arslan.vercel.app/#person"}
-    }
+    {"@type":"Organization","@id":"https://speak-see.com/#organization","name":"Speaksee","url":"https://speak-see.com"},
+    {"@type":"Organization","@id":"https://sighub.io/#organization","name":"Sighub","url":"https://sighub.io","founder":{"@id":"https://www.ulasarslan.com/#person"}},
+    {"@type":"SoftwareApplication","@id":"https://sighub.io/#renewal-radar","name":"Renewal Radar by Sighub","url":"https://sighub.io","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"A HubSpot app that turns structured CRM renewal risk signals into one clear owner task using deterministic, auditable logic.","creator":{"@id":"https://www.ulasarslan.com/#person"},"subjectOf":{"@id":"https://www.ulasarslan.com/work/sighub.html#case"}},
+    {"@type":"Article","@id":"https://www.ulasarslan.com/work/sighub.html#case","headline":"Sighub Renewal Radar case study","url":"https://www.ulasarslan.com/work/sighub.html","author":{"@id":"https://www.ulasarslan.com/#person"},"about":{"@id":"https://sighub.io/#renewal-radar"}},
+    {"@type":"Article","@id":"https://www.ulasarslan.com/work/speaksee-cx-system.html#case","headline":"Speaksee CX infrastructure case study","url":"https://www.ulasarslan.com/work/speaksee-cx-system.html","author":{"@id":"https://www.ulasarslan.com/#person"},"about":{"@id":"https://speak-see.com/#organization"}},
+    {"@type":"Article","@id":"https://www.ulasarslan.com/work/litebit-crisis-recovery.html#case","headline":"LiteBit crisis recovery case study","url":"https://www.ulasarslan.com/work/litebit-crisis-recovery.html","author":{"@id":"https://www.ulasarslan.com/#person"}}
   ],
   "lastUpdated": "2026-07-29"
 }
