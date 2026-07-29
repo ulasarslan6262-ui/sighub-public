@@ -1,4 +1,4 @@
-const canvas=document.querySelector('#background-experience');
+const canvas=document.querySelector('canvas#experience');
 if(canvas){
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const mobile=window.matchMedia('(max-width:720px)').matches;
@@ -11,7 +11,6 @@ if(canvas){
       renderer.outputColorSpace=THREE.SRGBColorSpace;
       renderer.toneMapping=THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure=1.18;
-
       const scene=new THREE.Scene();
       scene.fog=new THREE.FogExp2(0x070808,mobile?.072:.052);
       const camera=new THREE.PerspectiveCamera(42,window.innerWidth/window.innerHeight,.1,100);
@@ -19,7 +18,6 @@ if(canvas){
       const group=new THREE.Group();
       group.position.x=mobile?1.1:2.7;
       scene.add(group);
-
       const count=mobile?260:680;
       const positions=new Float32Array(count*3);
       const targets=new Float32Array(count*3);
@@ -38,13 +36,11 @@ if(canvas){
       const material=new THREE.PointsMaterial({color:0xff6b2c,size:mobile?.072:.058,transparent:true,opacity:mobile?.74:.82,depthWrite:false,blending:THREE.AdditiveBlending,sizeAttenuation:true});
       const particles=new THREE.Points(geometry,material);
       group.add(particles);
-
       const glowGeometry=new THREE.BufferGeometry();
       glowGeometry.setAttribute('position',new THREE.BufferAttribute(positions.slice(),3));
       const glowMaterial=new THREE.PointsMaterial({color:0xff3f08,size:mobile?.16:.13,transparent:true,opacity:.11,depthWrite:false,blending:THREE.AdditiveBlending,sizeAttenuation:true});
       const glow=new THREE.Points(glowGeometry,glowMaterial);
       group.add(glow);
-
       const setPoint=(arr,i,x,y,z)=>{arr[i*3]=x;arr[i*3+1]=y;arr[i*3+2]=z};
       const buildState=(state)=>{
         const arr=new Float32Array(count*3);
@@ -70,7 +66,6 @@ if(canvas){
         material.color.setHex(state===2||state===6?0xff8a54:0xff6326);
       },{threshold:[.3,.5,.7],rootMargin:'-12% 0px -12% 0px'});
       document.querySelectorAll('[data-state]').forEach(el=>observer.observe(el));
-
       const pointer={x:0,y:0,tx:0,ty:0};
       window.addEventListener('pointermove',e=>{pointer.tx=e.clientX/window.innerWidth*2-1;pointer.ty=-(e.clientY/window.innerHeight*2-1)},{passive:true});
       const clock=new THREE.Clock();
