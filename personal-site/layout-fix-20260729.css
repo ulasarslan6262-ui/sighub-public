@@ -1,5 +1,25 @@
 /* Keep only the particle canvas fixed; the Experience section remains in normal document flow. */
-canvas#experience{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.72}
+canvas#experience{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.82}
+body{position:relative;background:#070808}
+main,.site-header{position:relative;z-index:2}
 section#experience{position:relative!important;inset:auto!important;top:auto!important;right:auto!important;bottom:auto!important;left:auto!important;width:auto!important;height:auto!important;min-height:0!important;z-index:auto!important;pointer-events:auto!important;transform:none!important}
 .visual-fallback{display:none!important}
-@media (max-width:720px){canvas#experience{display:block!important;opacity:.5!important}.noise{display:none!important}.ambient{position:absolute!important;height:100svh!important}.site-header{position:sticky!important;left:auto!important;right:auto!important;top:0!important;grid-template-columns:1fr auto!important;padding:14px 20px!important;background:rgba(7,8,8,.94)!important;backdrop-filter:blur(16px)!important;-webkit-backdrop-filter:blur(16px)!important;mix-blend-mode:normal!important;border-bottom:1px solid var(--line)!important}.site-header nav{display:none!important}.header-contact{justify-self:end!important}.scene,.metrics,section#experience{position:relative!important;inset:auto!important;transform:none!important}.scene::before,.scene:nth-of-type(even)::before{background:linear-gradient(180deg,rgba(7,8,8,.94),rgba(7,8,8,.82))!important}.timeline-role h3 span{display:block!important;margin-top:8px!important}}
+
+/* One continuous particle world behind the full page. Sections keep only a soft readability veil. */
+.scene,.metrics{background:transparent!important}
+.scene::before,.scene:nth-of-type(even)::before{background:linear-gradient(180deg,rgba(7,8,8,.56),rgba(7,8,8,.38))!important;pointer-events:none}
+.metrics::before{content:"";position:absolute;inset:0;background:rgba(7,8,8,.42);pointer-events:none;z-index:-1}
+.case-card,.support-card,.capability,.metric,.expertise-item,.essay-row{backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+
+@media (max-width:720px){
+  canvas#experience{display:block!important;opacity:.68!important}
+  .noise{display:none!important}
+  .ambient{position:absolute!important;height:100svh!important}
+  .site-header{position:sticky!important;left:auto!important;right:auto!important;top:0!important;grid-template-columns:1fr auto!important;padding:14px 20px!important;background:rgba(7,8,8,.9)!important;backdrop-filter:blur(16px)!important;-webkit-backdrop-filter:blur(16px)!important;mix-blend-mode:normal!important;border-bottom:1px solid var(--line)!important}
+  .site-header nav{display:none!important}
+  .header-contact{justify-self:end!important}
+  .scene,.metrics,section#experience{position:relative!important;inset:auto!important;transform:none!important}
+  .scene::before,.scene:nth-of-type(even)::before{background:linear-gradient(180deg,rgba(7,8,8,.7),rgba(7,8,8,.52))!important}
+  .metrics::before{background:rgba(7,8,8,.58)}
+  .timeline-role h3 span{display:block!important;margin-top:8px!important}
+}
