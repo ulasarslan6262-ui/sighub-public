@@ -4,10 +4,10 @@ const style=document.createElement('style');
 style.dataset.uaIconSystem='true';
 style.textContent=`
 .arrow-icon::before,.arrow-icon::after,.down-icon::before,.down-icon::after,.ua-hide-generated-arrow::before,.ua-hide-generated-arrow::after{content:none!important;display:none!important}
-.arrow-icon,.ua-inline-icon{display:inline-grid!important;place-items:center;width:17px!important;height:17px!important;flex:0 0 17px!important;line-height:0!important;vertical-align:middle!important;transition:transform .28s var(--ease,cubic-bezier(.2,.75,.2,1)),color .28s ease!important}
-.down-icon{display:inline-grid!important;place-items:center!important;line-height:0!important}
-.arrow-icon svg,.ua-inline-icon svg{display:block;width:17px;height:17px;overflow:visible}
-.down-icon svg{display:block;width:16px;height:16px;overflow:visible}
+.arrow-icon,.ua-inline-icon{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:1.15em!important;height:1.15em!important;min-width:1.15em!important;flex:0 0 1.15em!important;line-height:0!important;vertical-align:-.18em!important;transition:transform .28s var(--ease,cubic-bezier(.2,.75,.2,1)),color .28s ease!important}
+.next .arrow-icon{width:28px!important;height:28px!important;min-width:28px!important;flex-basis:28px!important;align-self:center!important}
+.down-icon{display:inline-flex!important;align-items:center!important;justify-content:center!important;line-height:0!important}
+.arrow-icon svg,.ua-inline-icon svg,.down-icon svg{display:block;width:100%;height:100%;overflow:visible}
 .ua-icon-path{fill:none;stroke:currentColor;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
 a:hover .arrow-icon:not(.is-external),a:focus-visible .arrow-icon:not(.is-external),button:hover .arrow-icon:not(.is-external),button:focus-visible .arrow-icon:not(.is-external),a:hover .ua-inline-icon:not(.is-external),a:focus-visible .ua-inline-icon:not(.is-external){transform:translateX(3px)!important}
 a:hover .arrow-icon.is-external,a:focus-visible .arrow-icon.is-external,a:hover .ua-inline-icon.is-external,a:focus-visible .ua-inline-icon.is-external{transform:translate(2px,-2px)!important}
@@ -23,10 +23,10 @@ const createSvg=(type)=>{
   svg.setAttribute('aria-hidden','true');
   svg.setAttribute('focusable','false');
   const paths=type==='external'
-    ? ['M6 14 14 6','M8.5 6H14v5.5']
+    ? ['M5.5 14.5L14.5 5.5','M8.5 5.5H14.5V11.5']
     : type==='down'
-      ? ['M10 4v11','m5-5-5 5-5-5']
-      : ['M4 10h12','m-5-5 5 5-5 5'];
+      ? ['M10 3.5V15.5','M5.5 11L10 15.5L14.5 11']
+      : ['M3.5 10H16.5','M11.5 5L16.5 10L11.5 15'];
   paths.forEach((data)=>{
     const path=document.createElementNS(SVG_NS,'path');
     path.setAttribute('d',data);

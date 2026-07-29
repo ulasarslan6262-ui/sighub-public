@@ -7,5 +7,5 @@ const progressBar=document.querySelector('.page-progress span');
 const updateProgress=()=>{if(!progressBar)return;const max=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);progressBar.style.transform=`scaleX(${Math.min(1,Math.max(0,window.scrollY/max))})`;};
 window.addEventListener('scroll',updateProgress,{passive:true});
 updateProgress();
-import('/icon-system-20260729.js?v=1');
+import('/icon-system-20260729.js?v=2');
 import('/orange-orbs-20260729.js?v=3');
