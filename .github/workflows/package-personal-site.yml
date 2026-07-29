@@ -1,0 +1,35 @@
+name: Package personal site
+
+on:
+  pull_request:
+    paths:
+      - 'personal-site/**'
+      - '.github/workflows/package-personal-site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Verify no external HTML proxy
+        run: |
+          if grep -R -E "rawgit|githack|raw\.githubusercontent\.com" personal-site/vercel.json personal-site/*.html; then
+            echo "External proxy reference found"
+            exit 1
+          fi
+      - name: Package personal-site
+        run: |
+          cd personal-site
+          zip -r ../personal-site.zip . -x '.vercel-git-check'
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: personal-site
+          path: personal-site.zip
+          if-no-files-found: error
+          retention-days: 1
