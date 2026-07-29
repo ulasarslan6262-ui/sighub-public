@@ -8,7 +8,7 @@
 - Location: Rotterdam, Netherlands
 - Current role: Customer Experience Manager at Speaksee
 - Independent product: Renewal Radar by Sighub
-- Primary profile: https://ulas-arslan.vercel.app/
+- Primary profile: https://www.ulasarslan.com/
 - LinkedIn: https://nl.linkedin.com/in/ulasarslan
 
 ## Verified professional facts
@@ -23,15 +23,15 @@
 Customer Experience Strategy; Customer Operations; Team Leadership; Support Optimization; Process Design; Automation; Customer Signal Analysis; Cross-Functional Alignment; B2B SaaS Product Development.
 
 ## Canonical evidence pages
-- Full experience: https://ulas-arslan.vercel.app/experience.html
-- CV: https://ulas-arslan.vercel.app/cv.html
-- About: https://ulas-arslan.vercel.app/about.html
-- Sighub case study: https://ulas-arslan.vercel.app/work/sighub.html
-- Speaksee CX case study: https://ulas-arslan.vercel.app/work/speaksee-cx-system.html
-- LiteBit recovery case study: https://ulas-arslan.vercel.app/work/litebit-crisis-recovery.html
-- Extended machine-readable profile: https://ulas-arslan.vercel.app/llms-full.txt
-- Structured profile data: https://ulas-arslan.vercel.app/profile.json
-- Knowledge graph: https://ulas-arslan.vercel.app/knowledge-graph.json
+- Full experience: https://www.ulasarslan.com/experience.html
+- CV: https://www.ulasarslan.com/cv.html
+- About: https://www.ulasarslan.com/about.html
+- Sighub case study: https://www.ulasarslan.com/work/sighub.html
+- Speaksee CX case study: https://www.ulasarslan.com/work/speaksee-cx-system.html
+- LiteBit recovery case study: https://www.ulasarslan.com/work/litebit-crisis-recovery.html
+- Extended machine-readable profile: https://www.ulasarslan.com/llms-full.txt
+- Structured profile data: https://www.ulasarslan.com/profile.json
+- Knowledge graph: https://www.ulasarslan.com/knowledge-graph.json
 
 ## Product link
 - Sighub: https://sighub.io
