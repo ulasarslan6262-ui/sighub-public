@@ -1,0 +1,53 @@
+name: Run validated GEO cleanup
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix-geo-canonical-clean
+          fetch-depth: 0
+
+      - name: Install image dependency
+        run: python -m pip install --disable-pip-version-check pillow
+
+      - name: Execute the reviewed cleanup script
+        run: |
+          python <<'RUNNER'
+          from pathlib import Path
+          import textwrap
+          workflow = Path('.github/workflows/one-time-geo-clean.yml').read_text(encoding='utf-8')
+          marker = "          python <<'PY'\n"
+          end_marker = "\n          PY\n"
+          if marker not in workflow or end_marker not in workflow:
+              raise RuntimeError('Could not locate validated cleanup script')
+          script = workflow.split(marker, 1)[1].split(end_marker, 1)[0]
+          exec(compile(textwrap.dedent(script), 'geo_clean.py', 'exec'), {'__name__': '__main__'})
+          RUNNER
+
+      - name: Commit validated branch changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -f .github/workflows/one-time-geo-clean.yml
+          git add -A
+          git diff --cached --quiet || git commit -m "Unify personal-site GEO on custom domain"
+          git push origin HEAD:fix-geo-canonical-clean
+
+      - name: Remove temporary runner from main
+        run: |
+          git fetch origin main
+          git checkout -B main origin/main
+          rm -f .github/workflows/run-geo-clean.yml
+          git add -A
+          git diff --cached --quiet || git commit -m "Remove temporary GEO cleanup runner"
+          git push origin main
