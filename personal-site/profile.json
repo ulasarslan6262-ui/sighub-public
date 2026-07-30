@@ -1,19 +1,17 @@
 {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "@id": "https://www.ulasarslan.com/#person",
+  "schemaVersion": "1.0",
+  "canonicalUrl": "https://www.ulasarslan.com/",
+  "personId": "https://www.ulasarslan.com/#person",
   "name": "Ulaş Arslan",
-  "alternateName": [
+  "alternateNames": [
     "Ulas Arslan"
   ],
-  "url": "https://www.ulasarslan.com/",
   "location": "Rotterdam, Netherlands",
-  "jobTitle": "Customer Experience Manager and Product Builder",
   "currentRole": {
     "title": "Customer Experience Manager",
     "organization": "Speaksee",
     "startDate": "2024-08",
-    "canonicalEvidence": "https://www.ulasarslan.com/work/speaksee-cx-system.html"
+    "evidenceUrl": "https://www.ulasarslan.com/work/speaksee-cx-system.html"
   },
   "professionalProfile": "Customer Experience and Operations leader, team lead and product builder who connects support, product, sales and operations.",
   "expertise": [
@@ -33,7 +31,7 @@
     "crisisBacklogCleared": "approximately 3,000 tickets",
     "trustpilotRecovery": "approximately 2.4 to 4.0",
     "serviceDepartmentsLaunched": 2,
-    "accuracyNote": "Approximate figures are labelled as such and are not presented as independently audited metrics."
+    "accuracyNote": "Approximate figures are labelled as such and are not independently audited metrics."
   },
   "workHistory": [
     {
@@ -72,7 +70,7 @@
     "url": "https://sighub.io",
     "role": "End-to-end solo builder",
     "description": "A HubSpot app that turns structured CRM renewal risk signals into one clear owner task using deterministic, auditable logic.",
-    "canonicalEvidence": "https://www.ulasarslan.com/work/sighub.html"
+    "evidenceUrl": "https://www.ulasarslan.com/work/sighub.html"
   },
   "caseStudies": [
     {
@@ -88,56 +86,21 @@
       "url": "https://www.ulasarslan.com/work/litebit-crisis-recovery.html"
     }
   ],
-  "industries": [
-    "Accessibility technology",
-    "Fintech",
-    "Regulated digital assets",
-    "Healthcare",
-    "B2B SaaS"
-  ],
-  "tools": [
-    "HubSpot",
-    "Zendesk",
-    "Intercom",
-    "Mixpanel",
-    "Miro",
-    "Jira",
-    "Notion",
-    "Slack",
-    "AI tooling"
-  ],
-  "languages": [
-    {
-      "name": "Dutch",
-      "level": "Native"
-    },
-    {
-      "name": "English",
-      "level": "Professional"
-    },
-    {
-      "name": "Turkish",
-      "level": "Conversational"
-    }
+  "identityLinks": [
+    "https://nl.linkedin.com/in/ulasarslan",
+    "https://github.com/ulasarslan6262-ui"
   ],
   "links": {
     "homepage": "https://www.ulasarslan.com/",
+    "about": "https://www.ulasarslan.com/about.html",
     "experience": "https://www.ulasarslan.com/experience.html",
     "cv": "https://www.ulasarslan.com/cv.html",
     "linkedin": "https://nl.linkedin.com/in/ulasarslan",
-    "sighub": "https://sighub.io",
     "github": "https://github.com/ulasarslan6262-ui",
+    "sighub": "https://sighub.io",
     "llms": "https://www.ulasarslan.com/llms.txt",
     "llmsFull": "https://www.ulasarslan.com/llms-full.txt",
     "knowledgeGraph": "https://www.ulasarslan.com/knowledge-graph.json"
   },
-  "lastUpdated": "2026-07-30",
-  "sameAs": [
-    "https://nl.linkedin.com/in/ulasarslan",
-    "https://github.com/ulasarslan6262-ui"
-  ],
-  "homeLocation": {
-    "@type": "Place",
-    "name": "Rotterdam, Netherlands"
-  }
+  "lastUpdated": "2026-07-30"
 }
