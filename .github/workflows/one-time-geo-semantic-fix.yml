@@ -1,0 +1,244 @@
+name: One-time GEO semantic fix
+
+on:
+  push:
+    branches:
+      - fix-geo-canonical-consistency
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix-geo-canonical-consistency
+          fetch-depth: 0
+
+      - name: Correct entity references and knowledge graph
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import json
+          import re
+
+          ROOT = Path('personal-site')
+          SITE = 'https://www.ulasarslan.com'
+          PERSON_ID = f'{SITE}/#person'
+          SPEAKSEE_ID = 'https://speak-see.com/#organization'
+          SIGHUB_ID = 'https://sighub.io/#organization'
+          APP_ID = 'https://sighub.io/#renewal-radar'
+          LINKEDIN = 'https://nl.linkedin.com/in/ulasarslan'
+          GITHUB = 'https://github.com/ulasarslan6262-ui'
+          OG_IMAGE = f'{SITE}/assets/og.png'
+          TODAY = '2026-07-30'
+
+          person = {
+              '@type': 'Person',
+              '@id': PERSON_ID,
+              'name': 'Ulaş Arslan',
+              'alternateName': 'Ulas Arslan',
+              'url': f'{SITE}/',
+              'image': f'{SITE}/assets/portrait.svg',
+              'jobTitle': 'Customer Experience Manager and Product Builder',
+              'description': 'Customer Experience and Operations leader, team lead and product builder based in Rotterdam.',
+              'homeLocation': {'@type': 'Place', 'name': 'Rotterdam, Netherlands'},
+              'worksFor': {'@id': SPEAKSEE_ID},
+              'owns': {'@id': SIGHUB_ID},
+              'sameAs': [LINKEDIN, GITHUB],
+              'knowsAbout': [
+                  'Customer Experience Strategy', 'Customer Operations', 'Team Leadership',
+                  'Support Optimization', 'Process Design and Automation', 'Customer Signal Analysis',
+                  'Cross-Functional Alignment', 'B2B SaaS Product Development'
+              ]
+          }
+
+          speaksee = {'@type': 'Organization', '@id': SPEAKSEE_ID, 'name': 'Speaksee', 'url': 'https://speak-see.com'}
+          sighub = {'@type': 'Organization', '@id': SIGHUB_ID, 'name': 'Sighub', 'url': 'https://sighub.io', 'founder': {'@id': PERSON_ID}}
+          renewal_radar = {
+              '@type': 'SoftwareApplication', '@id': APP_ID, 'name': 'Renewal Radar by Sighub',
+              'url': 'https://sighub.io', 'applicationCategory': 'BusinessApplication',
+              'operatingSystem': 'Web',
+              'description': 'A HubSpot app that turns structured CRM renewal risk signals into one clear owner task using deterministic, auditable logic.',
+              'creator': {'@id': PERSON_ID},
+              'subjectOf': {'@id': f'{SITE}/work/sighub.html#case'}
+          }
+
+          def page_url(path: Path) -> str:
+              rel = path.relative_to(ROOT).as_posix()
+              return f'{SITE}/' if rel == 'index.html' else f'{SITE}/{rel}'
+
+          def collapse_references(value):
+              if isinstance(value, list):
+                  return [collapse_references(item) for item in value]
+              if not isinstance(value, dict):
+                  return value
+              value = {key: collapse_references(item) for key, item in value.items()}
+              if value.get('@id') == PERSON_ID and '@type' not in value:
+                  return {'@id': PERSON_ID}
+              if value.get('@id') in {SPEAKSEE_ID, SIGHUB_ID, APP_ID} and '@type' not in value:
+                  return {'@id': value['@id']}
+              return value
+
+          def normalize_graph(data, url):
+              data = collapse_references(data)
+              if not isinstance(data, dict):
+                  return data
+              graph = data.get('@graph')
+              if not isinstance(graph, list):
+                  if data.get('@type') == 'Person':
+                      return person
+                  return data
+
+              normalized = []
+              seen = set()
+              for node in graph:
+                  if not isinstance(node, dict):
+                      normalized.append(node)
+                      continue
+                  node_id = node.get('@id')
+                  node_type = node.get('@type')
+                  if node_id == PERSON_ID or node_type == 'Person':
+                      node = dict(person)
+                  elif node_id == SPEAKSEE_ID:
+                      node = dict(speaksee)
+                  elif node_id == SIGHUB_ID:
+                      node = dict(sighub)
+                  elif node_id == APP_ID:
+                      existing_description = node.get('description', renewal_radar['description'])
+                      node = dict(renewal_radar)
+                      node['description'] = existing_description
+                  elif node_type == 'WebSite':
+                      node['@id'] = f'{SITE}/#website'
+                      node['url'] = f'{SITE}/'
+                      node['publisher'] = {'@id': PERSON_ID}
+                      node['inLanguage'] = 'en'
+                  elif node_type == 'ProfilePage':
+                      node['@id'] = f'{SITE}/#profile'
+                      node['url'] = f'{SITE}/'
+                      node['mainEntity'] = {'@id': PERSON_ID}
+                      node['dateModified'] = TODAY
+                      node['inLanguage'] = 'en'
+                  elif node_type == 'Article':
+                      suffix = '#case' if '/work/' in url else '#article'
+                      node['@id'] = f'{url}{suffix}'
+                      node['url'] = url
+                      node['mainEntityOfPage'] = url
+                      node['author'] = {'@id': PERSON_ID}
+                      node['dateModified'] = TODAY
+                      node['inLanguage'] = 'en'
+                  node = collapse_references(node)
+                  key = node.get('@id') if isinstance(node, dict) else None
+                  if key and key in seen:
+                      continue
+                  if key:
+                      seen.add(key)
+                  normalized.append(node)
+
+              required = [person, speaksee, sighub, renewal_radar]
+              for node in required:
+                  if node['@id'] not in seen:
+                      normalized.append(node)
+                      seen.add(node['@id'])
+              data['@graph'] = normalized
+              return data
+
+          script_pattern = re.compile(r'(<script\s+type=["\']application/ld\+json["\'][^>]*>)(.*?)(</script>)', re.I | re.S)
+
+          for path in sorted(ROOT.rglob('*.html')):
+              text = path.read_text(encoding='utf-8').replace('2026-07-29', TODAY)
+              url = page_url(path)
+
+              def replace_script(match):
+                  data = json.loads(match.group(2))
+                  data = normalize_graph(data, url)
+                  return match.group(1) + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + match.group(3)
+
+              text = script_pattern.sub(replace_script, text)
+              text = text.replace(f'{SITE}/assets/og.svg', OG_IMAGE)
+
+              additions = []
+              if 'property="og:image:width"' not in text:
+                  additions.append('<meta property="og:image:width" content="1200">')
+              if 'property="og:image:height"' not in text:
+                  additions.append('<meta property="og:image:height" content="630">')
+              if 'property="og:image:alt"' not in text:
+                  additions.append('<meta property="og:image:alt" content="Ulaş Arslan — Customer Experience and Operations Leader">')
+              if 'name="twitter:image:alt"' not in text:
+                  additions.append('<meta name="twitter:image:alt" content="Ulaş Arslan — Customer Experience and Operations Leader">')
+              if additions:
+                  text = text.replace('</head>', ''.join(additions) + '</head>', 1)
+              path.write_text(text, encoding='utf-8')
+
+          graph = {
+              '@context': 'https://schema.org',
+              '@graph': [
+                  person,
+                  speaksee,
+                  sighub,
+                  renewal_radar,
+                  {'@type': 'WebSite', '@id': f'{SITE}/#website', 'url': f'{SITE}/', 'name': 'Ulaş Arslan', 'publisher': {'@id': PERSON_ID}, 'inLanguage': 'en'},
+                  {'@type': 'ProfilePage', '@id': f'{SITE}/#profile', 'url': f'{SITE}/', 'name': 'Ulaş Arslan — Customer Experience & Operations Leader', 'mainEntity': {'@id': PERSON_ID}, 'dateModified': TODAY, 'inLanguage': 'en'},
+                  {'@type': 'Article', '@id': f'{SITE}/work/sighub.html#case', 'headline': 'Sighub Renewal Radar case study', 'url': f'{SITE}/work/sighub.html', 'mainEntityOfPage': f'{SITE}/work/sighub.html', 'author': {'@id': PERSON_ID}, 'about': {'@id': APP_ID}, 'dateModified': TODAY, 'inLanguage': 'en'},
+                  {'@type': 'Article', '@id': f'{SITE}/work/speaksee-cx-system.html#case', 'headline': 'Speaksee CX infrastructure case study', 'url': f'{SITE}/work/speaksee-cx-system.html', 'mainEntityOfPage': f'{SITE}/work/speaksee-cx-system.html', 'author': {'@id': PERSON_ID}, 'about': {'@id': SPEAKSEE_ID}, 'dateModified': TODAY, 'inLanguage': 'en'},
+                  {'@type': 'Article', '@id': f'{SITE}/work/litebit-crisis-recovery.html#case', 'headline': 'LiteBit crisis recovery case study', 'url': f'{SITE}/work/litebit-crisis-recovery.html', 'mainEntityOfPage': f'{SITE}/work/litebit-crisis-recovery.html', 'author': {'@id': PERSON_ID}, 'dateModified': TODAY, 'inLanguage': 'en'},
+                  {'@type': 'Article', '@id': f'{SITE}/writing/signals-before-dashboards.html#article', 'headline': 'Signals before dashboards', 'url': f'{SITE}/writing/signals-before-dashboards.html', 'mainEntityOfPage': f'{SITE}/writing/signals-before-dashboards.html', 'author': {'@id': PERSON_ID}, 'dateModified': TODAY, 'inLanguage': 'en'},
+                  {'@type': 'Article', '@id': f'{SITE}/writing/the-last-mile.html#article', 'headline': 'The last mile of operational software', 'url': f'{SITE}/writing/the-last-mile.html', 'mainEntityOfPage': f'{SITE}/writing/the-last-mile.html', 'author': {'@id': PERSON_ID}, 'dateModified': TODAY, 'inLanguage': 'en'},
+                  {'@type': 'Article', '@id': f'{SITE}/writing/build-before-scale.html#article', 'headline': 'Build before scale, but not forever', 'url': f'{SITE}/writing/build-before-scale.html', 'mainEntityOfPage': f'{SITE}/writing/build-before-scale.html', 'author': {'@id': PERSON_ID}, 'dateModified': TODAY, 'inLanguage': 'en'}
+              ],
+              'lastUpdated': TODAY
+          }
+          (ROOT / 'knowledge-graph.json').write_text(json.dumps(graph, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          for path in [ROOT / 'profile.json']:
+              data = json.loads(path.read_text(encoding='utf-8'))
+              data['@id'] = PERSON_ID
+              data['url'] = f'{SITE}/'
+              data['sameAs'] = [LINKEDIN, GITHUB]
+              data['homeLocation'] = {'@type': 'Place', 'name': 'Rotterdam, Netherlands'}
+              data['lastUpdated'] = TODAY
+              path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          for path in [ROOT / 'llms-full.txt', ROOT / 'llms.txt', ROOT / 'sitemap.xml', ROOT / 'feed.xml']:
+              if path.exists():
+                  path.write_text(path.read_text(encoding='utf-8').replace('2026-07-29', TODAY), encoding='utf-8')
+
+          # Semantic validation.
+          for path in sorted(ROOT.rglob('*.html')):
+              text = path.read_text(encoding='utf-8')
+              url = page_url(path)
+              assert f'<link rel="canonical" href="{url}">' in text, path
+              assert OG_IMAGE in text, path
+              assert 'property="og:image:width" content="1200"' in text, path
+              assert 'property="og:image:height" content="630"' in text, path
+              for raw in re.findall(r'<script\s+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', text, re.I | re.S):
+                  data = json.loads(raw)
+                  serialized = json.dumps(data, ensure_ascii=False)
+                  assert 'ulas-arslan.vercel.app' not in serialized, path
+                  assert '"sameAs": "https://sighub.io"' not in serialized, path
+                  assert '"sameAs": ["https://sighub.io"' not in serialized, path
+                  # References should stay compact rather than duplicating the complete Person entity.
+                  for match in re.finditer(r'"(?:author|creator|founder)":\s*(\{.*?\})', serialized):
+                      ref = json.loads(match.group(1))
+                      if ref.get('@id') == PERSON_ID:
+                          assert ref == {'@id': PERSON_ID}, (path, ref)
+
+          kg = json.loads((ROOT / 'knowledge-graph.json').read_text(encoding='utf-8'))
+          ids = [node.get('@id') for node in kg['@graph'] if isinstance(node, dict)]
+          assert len(ids) == len(set(ids)), 'Duplicate @ids in knowledge graph'
+          assert f'{SITE}/knowledge-graph.json#article' not in ids
+          assert 'ulas-arslan.vercel.app' not in json.dumps(kg)
+          print('Semantic GEO validation passed for all HTML and graph files.')
+          PY
+
+      - name: Commit semantic fixes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -f .github/workflows/one-time-geo-semantic-fix.yml
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "Correct GEO entity references and social metadata"
+          git push origin HEAD:fix-geo-canonical-consistency
