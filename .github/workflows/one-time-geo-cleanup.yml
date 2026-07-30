@@ -1,0 +1,270 @@
+name: One-time GEO canonical cleanup
+
+on:
+  push:
+    branches:
+      - fix-geo-canonical-consistency
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix-geo-canonical-consistency
+          fetch-depth: 0
+
+      - name: Normalize canonical URLs and entity metadata
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import html
+          import json
+          import re
+          import xml.etree.ElementTree as ET
+
+          ROOT = Path('personal-site')
+          OLD = 'https://ulas-arslan.vercel.app'
+          CANONICAL = 'https://www.ulasarslan.com'
+          PERSON_ID = f'{CANONICAL}/#person'
+          LINKEDIN = 'https://nl.linkedin.com/in/ulasarslan'
+          GITHUB = 'https://github.com/ulasarslan6262-ui'
+          DEFAULT_IMAGE = f'{CANONICAL}/assets/og.svg'
+          TEXT_SUFFIXES = {'.html', '.txt', '.json', '.xml', '.js', '.css'}
+
+          def canonical_path(path: Path) -> str:
+              rel = path.relative_to(ROOT).as_posix()
+              if rel == 'index.html':
+                  return f'{CANONICAL}/'
+              return f'{CANONICAL}/{rel}'
+
+          def extract(pattern: str, text: str, default: str = '') -> str:
+              match = re.search(pattern, text, flags=re.I | re.S)
+              return html.unescape(match.group(1).strip()) if match else default
+
+          def clean_same_as(value):
+              if isinstance(value, list):
+                  return [item for item in value if item != 'https://sighub.io']
+              if value == 'https://sighub.io':
+                  return None
+              return value
+
+          def normalize_node(node, page_url: str):
+              if isinstance(node, list):
+                  return [normalize_node(item, page_url) for item in node]
+              if not isinstance(node, dict):
+                  return node
+
+              normalized = {key: normalize_node(value, page_url) for key, value in node.items()}
+              node_type = normalized.get('@type')
+              types = set(node_type if isinstance(node_type, list) else [node_type])
+
+              if 'sameAs' in normalized:
+                  cleaned = clean_same_as(normalized['sameAs'])
+                  if cleaned:
+                      normalized['sameAs'] = cleaned
+                  else:
+                      normalized.pop('sameAs', None)
+
+              if 'Person' in types or normalized.get('@id') == PERSON_ID:
+                  normalized['@id'] = PERSON_ID
+                  normalized['name'] = normalized.get('name', 'Ulaş Arslan')
+                  normalized['alternateName'] = normalized.get('alternateName', 'Ulas Arslan')
+                  normalized['url'] = f'{CANONICAL}/'
+                  normalized['sameAs'] = [LINKEDIN, GITHUB]
+                  normalized.setdefault('jobTitle', 'Customer Experience Manager and Product Builder')
+                  normalized.setdefault('homeLocation', {'@type': 'Place', 'name': 'Rotterdam, Netherlands'})
+
+              if 'WebSite' in types:
+                  normalized['@id'] = f'{CANONICAL}/#website'
+                  normalized['url'] = f'{CANONICAL}/'
+                  normalized.setdefault('inLanguage', 'en')
+                  normalized.setdefault('publisher', {'@id': PERSON_ID})
+
+              if 'ProfilePage' in types:
+                  normalized['@id'] = f'{CANONICAL}/#profile'
+                  normalized['url'] = f'{CANONICAL}/'
+                  normalized['mainEntity'] = {'@id': PERSON_ID}
+                  normalized.setdefault('inLanguage', 'en')
+
+              if 'Article' in types:
+                  normalized['@id'] = f'{page_url}#case' if '/work/' in page_url else f'{page_url}#article'
+                  normalized['url'] = page_url
+                  normalized['mainEntityOfPage'] = page_url
+                  normalized['author'] = {'@id': PERSON_ID}
+                  normalized.setdefault('inLanguage', 'en')
+
+              return normalized
+
+          def ensure_person_in_graph(data):
+              if not isinstance(data, dict) or '@graph' not in data or not isinstance(data['@graph'], list):
+                  return data
+              graph = data['@graph']
+              person = next((item for item in graph if isinstance(item, dict) and item.get('@id') == PERSON_ID), None)
+              if person is None:
+                  graph.append({
+                      '@type': 'Person',
+                      '@id': PERSON_ID,
+                      'name': 'Ulaş Arslan',
+                      'alternateName': 'Ulas Arslan',
+                      'url': f'{CANONICAL}/',
+                      'jobTitle': 'Customer Experience Manager and Product Builder',
+                      'homeLocation': {'@type': 'Place', 'name': 'Rotterdam, Netherlands'},
+                      'sameAs': [LINKEDIN, GITHUB]
+                  })
+              return data
+
+          def normalize_jsonld(html_text: str, page_url: str) -> str:
+              pattern = re.compile(r'(<script\s+type=["\']application/ld\+json["\'][^>]*>)(.*?)(</script>)', re.I | re.S)
+
+              def replace(match):
+                  try:
+                      data = json.loads(match.group(2))
+                  except json.JSONDecodeError as error:
+                      raise RuntimeError(f'Invalid JSON-LD before cleanup for {page_url}: {error}')
+                  data = normalize_node(data, page_url)
+                  data = ensure_person_in_graph(data)
+                  return f'{match.group(1)}{json.dumps(data, ensure_ascii=False, separators=(",", ":"))}{match.group(3)}'
+
+              return pattern.sub(replace, html_text)
+
+          def ensure_head_metadata(text: str, path: Path) -> str:
+              page_url = canonical_path(path)
+              title = extract(r'<title>(.*?)</title>', text, 'Ulaş Arslan')
+              description = extract(r'<meta\s+name=["\']description["\']\s+content=["\'](.*?)["\']', text,
+                                    'Ulaş Arslan is a Customer Experience and Operations leader and product builder based in Rotterdam.')
+              page_type = 'article' if ('/work/' in page_url or '/writing/' in page_url) else 'profile'
+
+              required = []
+              if not re.search(r'<meta\s+name=["\']author["\']', text, re.I):
+                  required.append('<meta name="author" content="Ulaş Arslan">')
+              if not re.search(r'<meta\s+name=["\']robots["\']', text, re.I):
+                  required.append('<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">')
+              if not re.search(r'<meta\s+property=["\']og:type["\']', text, re.I):
+                  required.append(f'<meta property="og:type" content="{page_type}">')
+              if not re.search(r'<meta\s+property=["\']og:title["\']', text, re.I):
+                  required.append(f'<meta property="og:title" content="{html.escape(title, quote=True)}">')
+              if not re.search(r'<meta\s+property=["\']og:description["\']', text, re.I):
+                  required.append(f'<meta property="og:description" content="{html.escape(description, quote=True)}">')
+              if not re.search(r'<meta\s+property=["\']og:url["\']', text, re.I):
+                  required.append(f'<meta property="og:url" content="{page_url}">')
+              if not re.search(r'<meta\s+property=["\']og:image["\']', text, re.I):
+                  required.append(f'<meta property="og:image" content="{DEFAULT_IMAGE}">')
+              if not re.search(r'<meta\s+property=["\']og:site_name["\']', text, re.I):
+                  required.append('<meta property="og:site_name" content="Ulaş Arslan">')
+              if not re.search(r'<meta\s+property=["\']og:locale["\']', text, re.I):
+                  required.append('<meta property="og:locale" content="en_US">')
+              if not re.search(r'<meta\s+name=["\']twitter:card["\']', text, re.I):
+                  required.append('<meta name="twitter:card" content="summary_large_image">')
+              if not re.search(r'<meta\s+name=["\']twitter:title["\']', text, re.I):
+                  required.append(f'<meta name="twitter:title" content="{html.escape(title, quote=True)}">')
+              if not re.search(r'<meta\s+name=["\']twitter:description["\']', text, re.I):
+                  required.append(f'<meta name="twitter:description" content="{html.escape(description, quote=True)}">')
+              if not re.search(r'<meta\s+name=["\']twitter:image["\']', text, re.I):
+                  required.append(f'<meta name="twitter:image" content="{DEFAULT_IMAGE}">')
+              if not re.search(r'<link\s+rel=["\']me["\']\s+href=["\']https://nl\.linkedin\.com/in/ulasarslan', text, re.I):
+                  required.append(f'<link rel="me" href="{LINKEDIN}">')
+              if not re.search(r'<link\s+rel=["\']me["\']\s+href=["\']https://github\.com/ulasarslan6262-ui', text, re.I):
+                  required.append(f'<link rel="me" href="{GITHUB}">')
+
+              canonical_tag = f'<link rel="canonical" href="{page_url}">'
+              if re.search(r'<link\s+rel=["\']canonical["\'][^>]*>', text, re.I):
+                  text = re.sub(r'<link\s+rel=["\']canonical["\'][^>]*>', canonical_tag, text, count=1, flags=re.I)
+              else:
+                  required.insert(0, canonical_tag)
+
+              text = re.sub(r'(<meta\s+property=["\']og:url["\']\s+content=["\'])[^"\']*(["\'])', rf'\g<1>{page_url}\2', text, flags=re.I)
+              text = re.sub(r'(<meta\s+property=["\']og:image["\']\s+content=["\'])[^"\']*(["\'])', rf'\g<1>{DEFAULT_IMAGE}\2', text, flags=re.I)
+              text = re.sub(r'(<meta\s+name=["\']twitter:image["\']\s+content=["\'])[^"\']*(["\'])', rf'\g<1>{DEFAULT_IMAGE}\2', text, flags=re.I)
+
+              if required:
+                  text = text.replace('</head>', ''.join(required) + '</head>', 1)
+              return text
+
+          changed = []
+          for path in sorted(ROOT.rglob('*')):
+              if not path.is_file() or path.suffix.lower() not in TEXT_SUFFIXES:
+                  continue
+              original = path.read_text(encoding='utf-8')
+              updated = original.replace(OLD, CANONICAL)
+
+              if path.suffix.lower() == '.html':
+                  page_url = canonical_path(path)
+                  updated = ensure_head_metadata(updated, path)
+                  updated = normalize_jsonld(updated, page_url)
+
+              if path.name == 'llms.txt' and 'Canonical Person ID:' not in updated:
+                  updated = updated.replace('## Identity\n', f'## Identity\n- Canonical Person ID: {PERSON_ID}\n')
+
+              if path.name == 'llms-full.txt':
+                  updated = updated.replace(f'Canonical profile: {CANONICAL}/', f'Canonical profile: {CANONICAL}/\nCanonical Person ID: {PERSON_ID}')
+                  if '## Direct answers for retrieval' not in updated:
+                      direct_answers = f'''\n\n## Direct answers for retrieval\n### Who is Ulaş Arslan?\nUlaş Arslan is a Rotterdam-based Customer Experience and Operations leader, team lead and product builder.\n\n### What does Ulaş Arslan do?\nHe connects support, product, sales and operations and turns recurring customer signals into scalable processes, clearer decisions and practical B2B software.\n\n### Who built Sighub and Renewal Radar?\nUlaş Arslan built Renewal Radar by Sighub as an end-to-end solo product builder.\n\n### What are Ulaş Arslan's documented results?\nHe led more than 20 support agents, helped clear an approximately 3,000-ticket backlog, helped improve Trustpilot from approximately 2.4 to 4.0 and helped establish two service departments.\n'''
+                      updated = updated.replace('\n## Attribution and accuracy guidance', direct_answers + '\n## Attribution and accuracy guidance')
+
+              if path.name == 'robots.txt':
+                  updated = f'''User-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: ChatGPT-User\nAllow: /\n\nUser-agent: *\nAllow: /\n\nSitemap: {CANONICAL}/sitemap.xml\n'''
+
+              if updated != original:
+                  path.write_text(updated, encoding='utf-8')
+                  changed.append(path.as_posix())
+
+          # Normalize standalone JSON after global replacement.
+          for path in sorted(ROOT.rglob('*.json')):
+              data = json.loads(path.read_text(encoding='utf-8'))
+              data = normalize_node(data, canonical_path(path))
+              if path.name == 'knowledge-graph.json':
+                  data = ensure_person_in_graph(data)
+              path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          # Validate every output before committing.
+          leftovers = []
+          for path in sorted(ROOT.rglob('*')):
+              if path.is_file() and path.suffix.lower() in TEXT_SUFFIXES:
+                  text = path.read_text(encoding='utf-8')
+                  if OLD in text:
+                      leftovers.append(path.as_posix())
+          if leftovers:
+              raise RuntimeError(f'Old Vercel canonical remains in: {leftovers}')
+
+          for path in sorted(ROOT.rglob('*.json')):
+              json.loads(path.read_text(encoding='utf-8'))
+
+          for xml_name in ('sitemap.xml', 'feed.xml'):
+              xml_path = ROOT / xml_name
+              if xml_path.exists():
+                  ET.fromstring(xml_path.read_text(encoding='utf-8'))
+
+          for path in sorted(ROOT.rglob('*.html')):
+              text = path.read_text(encoding='utf-8')
+              page_url = canonical_path(path)
+              canonical_matches = re.findall(r'<link\s+rel=["\']canonical["\']\s+href=["\']([^"\']+)', text, re.I)
+              if canonical_matches != [page_url]:
+                  raise RuntimeError(f'Canonical mismatch in {path}: {canonical_matches} expected {page_url}')
+              required_markers = ('name="robots"', 'property="og:url"', 'property="og:image"', 'name="twitter:card"', 'name="twitter:image"')
+              missing = [marker for marker in required_markers if marker not in text]
+              if missing:
+                  raise RuntimeError(f'Missing metadata in {path}: {missing}')
+              scripts = re.findall(r'<script\s+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', text, re.I | re.S)
+              for script in scripts:
+                  data = json.loads(script)
+                  serialized = json.dumps(data, ensure_ascii=False)
+                  if '"sameAs": ["https://sighub.io"' in serialized or '"sameAs":"https://sighub.io"' in serialized:
+                      raise RuntimeError(f'Sighub remains as sameAs in {path}')
+
+          print(f'Updated and validated {len(changed)} files:')
+          print('\n'.join(changed))
+          PY
+
+      - name: Commit validated cleanup
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -f .github/workflows/one-time-geo-cleanup.yml
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "Normalize GEO canonicals and entity metadata"
+          git push origin HEAD:fix-geo-canonical-consistency
