@@ -3,6 +3,7 @@
 > Ulaş Arslan is a Rotterdam-based Customer Experience and Operations leader, team lead and product builder. He connects support, product, sales and operations and turns recurring customer signals into scalable systems, clearer decisions and practical software.
 
 ## Identity
+- Canonical Person ID: https://www.ulasarslan.com/#person
 - Full name: Ulaş Arslan
 - ASCII name: Ulas Arslan
 - Location: Rotterdam, Netherlands
