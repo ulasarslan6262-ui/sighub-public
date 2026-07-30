@@ -7,7 +7,9 @@
       "name": "Ulaş Arslan",
       "alternateName": "Ulas Arslan",
       "url": "https://www.ulasarslan.com/",
+      "image": "https://www.ulasarslan.com/assets/portrait.svg",
       "jobTitle": "Customer Experience Manager and Product Builder",
+      "description": "Customer Experience and Operations leader, team lead and product builder based in Rotterdam.",
       "homeLocation": {
         "@type": "Place",
         "name": "Rotterdam, Netherlands"
@@ -45,19 +47,7 @@
       "name": "Sighub",
       "url": "https://sighub.io",
       "founder": {
-        "@id": "https://www.ulasarslan.com/#person",
-        "name": "Ulaş Arslan",
-        "alternateName": "Ulas Arslan",
-        "url": "https://www.ulasarslan.com/",
-        "sameAs": [
-          "https://nl.linkedin.com/in/ulasarslan",
-          "https://github.com/ulasarslan6262-ui"
-        ],
-        "jobTitle": "Customer Experience Manager and Product Builder",
-        "homeLocation": {
-          "@type": "Place",
-          "name": "Rotterdam, Netherlands"
-        }
+        "@id": "https://www.ulasarslan.com/#person"
       }
     },
     {
@@ -69,63 +59,111 @@
       "operatingSystem": "Web",
       "description": "A HubSpot app that turns structured CRM renewal risk signals into one clear owner task using deterministic, auditable logic.",
       "creator": {
-        "@id": "https://www.ulasarslan.com/#person",
-        "name": "Ulaş Arslan",
-        "alternateName": "Ulas Arslan",
-        "url": "https://www.ulasarslan.com/",
-        "sameAs": [
-          "https://nl.linkedin.com/in/ulasarslan",
-          "https://github.com/ulasarslan6262-ui"
-        ],
-        "jobTitle": "Customer Experience Manager and Product Builder",
-        "homeLocation": {
-          "@type": "Place",
-          "name": "Rotterdam, Netherlands"
-        }
+        "@id": "https://www.ulasarslan.com/#person"
       },
       "subjectOf": {
         "@id": "https://www.ulasarslan.com/work/sighub.html#case"
       }
     },
     {
+      "@type": "WebSite",
+      "@id": "https://www.ulasarslan.com/#website",
+      "url": "https://www.ulasarslan.com/",
+      "name": "Ulaş Arslan",
+      "publisher": {
+        "@id": "https://www.ulasarslan.com/#person"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://www.ulasarslan.com/#profile",
+      "url": "https://www.ulasarslan.com/",
+      "name": "Ulaş Arslan — Customer Experience & Operations Leader",
+      "mainEntity": {
+        "@id": "https://www.ulasarslan.com/#person"
+      },
+      "dateModified": "2026-07-30",
+      "inLanguage": "en"
+    },
+    {
       "@type": "Article",
-      "@id": "https://www.ulasarslan.com/knowledge-graph.json#article",
+      "@id": "https://www.ulasarslan.com/work/sighub.html#case",
       "headline": "Sighub Renewal Radar case study",
-      "url": "https://www.ulasarslan.com/knowledge-graph.json",
+      "url": "https://www.ulasarslan.com/work/sighub.html",
+      "mainEntityOfPage": "https://www.ulasarslan.com/work/sighub.html",
       "author": {
         "@id": "https://www.ulasarslan.com/#person"
       },
       "about": {
         "@id": "https://sighub.io/#renewal-radar"
       },
-      "mainEntityOfPage": "https://www.ulasarslan.com/knowledge-graph.json",
+      "dateModified": "2026-07-30",
       "inLanguage": "en"
     },
     {
       "@type": "Article",
-      "@id": "https://www.ulasarslan.com/knowledge-graph.json#article",
+      "@id": "https://www.ulasarslan.com/work/speaksee-cx-system.html#case",
       "headline": "Speaksee CX infrastructure case study",
-      "url": "https://www.ulasarslan.com/knowledge-graph.json",
+      "url": "https://www.ulasarslan.com/work/speaksee-cx-system.html",
+      "mainEntityOfPage": "https://www.ulasarslan.com/work/speaksee-cx-system.html",
       "author": {
         "@id": "https://www.ulasarslan.com/#person"
       },
       "about": {
         "@id": "https://speak-see.com/#organization"
       },
-      "mainEntityOfPage": "https://www.ulasarslan.com/knowledge-graph.json",
+      "dateModified": "2026-07-30",
       "inLanguage": "en"
     },
     {
       "@type": "Article",
-      "@id": "https://www.ulasarslan.com/knowledge-graph.json#article",
+      "@id": "https://www.ulasarslan.com/work/litebit-crisis-recovery.html#case",
       "headline": "LiteBit crisis recovery case study",
-      "url": "https://www.ulasarslan.com/knowledge-graph.json",
+      "url": "https://www.ulasarslan.com/work/litebit-crisis-recovery.html",
+      "mainEntityOfPage": "https://www.ulasarslan.com/work/litebit-crisis-recovery.html",
       "author": {
         "@id": "https://www.ulasarslan.com/#person"
       },
-      "mainEntityOfPage": "https://www.ulasarslan.com/knowledge-graph.json",
+      "dateModified": "2026-07-30",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://www.ulasarslan.com/writing/signals-before-dashboards.html#article",
+      "headline": "Signals before dashboards",
+      "url": "https://www.ulasarslan.com/writing/signals-before-dashboards.html",
+      "mainEntityOfPage": "https://www.ulasarslan.com/writing/signals-before-dashboards.html",
+      "author": {
+        "@id": "https://www.ulasarslan.com/#person"
+      },
+      "dateModified": "2026-07-30",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://www.ulasarslan.com/writing/the-last-mile.html#article",
+      "headline": "The last mile of operational software",
+      "url": "https://www.ulasarslan.com/writing/the-last-mile.html",
+      "mainEntityOfPage": "https://www.ulasarslan.com/writing/the-last-mile.html",
+      "author": {
+        "@id": "https://www.ulasarslan.com/#person"
+      },
+      "dateModified": "2026-07-30",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://www.ulasarslan.com/writing/build-before-scale.html#article",
+      "headline": "Build before scale, but not forever",
+      "url": "https://www.ulasarslan.com/writing/build-before-scale.html",
+      "mainEntityOfPage": "https://www.ulasarslan.com/writing/build-before-scale.html",
+      "author": {
+        "@id": "https://www.ulasarslan.com/#person"
+      },
+      "dateModified": "2026-07-30",
       "inLanguage": "en"
     }
   ],
-  "lastUpdated": "2026-07-29"
+  "lastUpdated": "2026-07-30"
 }
