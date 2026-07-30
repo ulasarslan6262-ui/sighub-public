@@ -1,17 +1,17 @@
 {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "@id": "https://ulas-arslan.vercel.app/#person",
+  "schemaVersion": "1.0",
+  "canonicalUrl": "https://www.ulasarslan.com/",
+  "personId": "https://www.ulasarslan.com/#person",
   "name": "Ulaş Arslan",
-  "alternateName": ["Ulas Arslan"],
-  "url": "https://ulas-arslan.vercel.app/",
+  "alternateNames": [
+    "Ulas Arslan"
+  ],
   "location": "Rotterdam, Netherlands",
-  "jobTitle": "Customer Experience Manager and Product Builder",
   "currentRole": {
     "title": "Customer Experience Manager",
     "organization": "Speaksee",
     "startDate": "2024-08",
-    "canonicalEvidence": "https://ulas-arslan.vercel.app/work/speaksee-cx-system.html"
+    "evidenceUrl": "https://www.ulasarslan.com/work/speaksee-cx-system.html"
   },
   "professionalProfile": "Customer Experience and Operations leader, team lead and product builder who connects support, product, sales and operations.",
   "expertise": [
@@ -31,44 +31,76 @@
     "crisisBacklogCleared": "approximately 3,000 tickets",
     "trustpilotRecovery": "approximately 2.4 to 4.0",
     "serviceDepartmentsLaunched": 2,
-    "accuracyNote": "Approximate figures are labelled as such and are not presented as independently audited metrics."
+    "accuracyNote": "Approximate figures are labelled as such and are not independently audited metrics."
   },
   "workHistory": [
-    {"organization":"Speaksee","role":"Customer Experience Manager","startDate":"2024-08","endDate":null},
-    {"organization":"Amdax","role":"Customer Success Coordinator","startDate":"2024-02","endDate":"2024-06"},
-    {"organization":"LiteBit","role":"Customer Support Team Lead","startDate":"2021-03","endDate":"2023-10"},
-    {"organization":"LiteBit","role":"Customer Support / Social Media Marketeer","startDate":"2018-04","endDate":"2021-03"},
-    {"organization":"Zilveren Kruis","role":"AR Service Associate","startDate":"2016-05","endDate":"2018-04"}
+    {
+      "organization": "Speaksee",
+      "role": "Customer Experience Manager",
+      "startDate": "2024-08",
+      "endDate": null
+    },
+    {
+      "organization": "Amdax",
+      "role": "Customer Success Coordinator",
+      "startDate": "2024-02",
+      "endDate": "2024-06"
+    },
+    {
+      "organization": "LiteBit",
+      "role": "Customer Support Team Lead",
+      "startDate": "2021-03",
+      "endDate": "2023-10"
+    },
+    {
+      "organization": "LiteBit",
+      "role": "Customer Support / Social Media Marketeer",
+      "startDate": "2018-04",
+      "endDate": "2021-03"
+    },
+    {
+      "organization": "Zilveren Kruis",
+      "role": "AR Service Associate",
+      "startDate": "2016-05",
+      "endDate": "2018-04"
+    }
   ],
   "product": {
     "name": "Renewal Radar by Sighub",
     "url": "https://sighub.io",
     "role": "End-to-end solo builder",
     "description": "A HubSpot app that turns structured CRM renewal risk signals into one clear owner task using deterministic, auditable logic.",
-    "canonicalEvidence": "https://ulas-arslan.vercel.app/work/sighub.html"
+    "evidenceUrl": "https://www.ulasarslan.com/work/sighub.html"
   },
   "caseStudies": [
-    {"name":"Renewal Radar by Sighub","url":"https://ulas-arslan.vercel.app/work/sighub.html"},
-    {"name":"Speaksee CX infrastructure","url":"https://ulas-arslan.vercel.app/work/speaksee-cx-system.html"},
-    {"name":"LiteBit crisis recovery","url":"https://ulas-arslan.vercel.app/work/litebit-crisis-recovery.html"}
+    {
+      "name": "Renewal Radar by Sighub",
+      "url": "https://www.ulasarslan.com/work/sighub.html"
+    },
+    {
+      "name": "Speaksee CX infrastructure",
+      "url": "https://www.ulasarslan.com/work/speaksee-cx-system.html"
+    },
+    {
+      "name": "LiteBit crisis recovery",
+      "url": "https://www.ulasarslan.com/work/litebit-crisis-recovery.html"
+    }
   ],
-  "industries": ["Accessibility technology", "Fintech", "Regulated digital assets", "Healthcare", "B2B SaaS"],
-  "tools": ["HubSpot", "Zendesk", "Intercom", "Mixpanel", "Miro", "Jira", "Notion", "Slack", "AI tooling"],
-  "languages": [
-    {"name":"Dutch","level":"Native"},
-    {"name":"English","level":"Professional"},
-    {"name":"Turkish","level":"Conversational"}
+  "identityLinks": [
+    "https://nl.linkedin.com/in/ulasarslan",
+    "https://github.com/ulasarslan6262-ui"
   ],
   "links": {
-    "homepage": "https://ulas-arslan.vercel.app/",
-    "experience": "https://ulas-arslan.vercel.app/experience.html",
-    "cv": "https://ulas-arslan.vercel.app/cv.html",
+    "homepage": "https://www.ulasarslan.com/",
+    "about": "https://www.ulasarslan.com/about.html",
+    "experience": "https://www.ulasarslan.com/experience.html",
+    "cv": "https://www.ulasarslan.com/cv.html",
     "linkedin": "https://nl.linkedin.com/in/ulasarslan",
-    "sighub": "https://sighub.io",
     "github": "https://github.com/ulasarslan6262-ui",
-    "llms": "https://ulas-arslan.vercel.app/llms.txt",
-    "llmsFull": "https://ulas-arslan.vercel.app/llms-full.txt",
-    "knowledgeGraph": "https://ulas-arslan.vercel.app/knowledge-graph.json"
+    "sighub": "https://sighub.io",
+    "llms": "https://www.ulasarslan.com/llms.txt",
+    "llmsFull": "https://www.ulasarslan.com/llms-full.txt",
+    "knowledgeGraph": "https://www.ulasarslan.com/knowledge-graph.json"
   },
-  "lastUpdated": "2026-07-29"
+  "lastUpdated": "2026-07-30"
 }
