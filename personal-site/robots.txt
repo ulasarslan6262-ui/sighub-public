@@ -4,6 +4,12 @@ Allow: /
 User-agent: ChatGPT-User
 Allow: /
 
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
 User-agent: *
 Allow: /
 
