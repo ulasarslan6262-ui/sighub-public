@@ -78,6 +78,7 @@ jobs:
           tree = ET.parse(root / "sitemap.xml")
           locations = {node.text for node in tree.findall(".//{http://www.sitemaps.org/schemas/sitemap/0.9}loc")}
           assert f"{site}/agent.html" in locations
+          assert f"{site}/{key}.txt" not in locations
 
           all_public = "\n".join(
               p.read_text(encoding="utf-8", errors="ignore")
@@ -129,10 +130,11 @@ jobs:
               if not path.startswith(prefix):
                   return None
               rel = path[len(prefix):]
+              excluded = {f"{key}.txt", "404.html", "robots.txt", "sitemap.xml", "vercel.json"}
+              if rel in excluded or rel.startswith("assets/"):
+                  return None
               if rel == "index.html":
                   return site + "/"
-              if rel.startswith("assets/"):
-                  return None
               if rel.endswith((".html", ".txt", ".json", ".xml")):
                   return site + "/" + rel
               return None
