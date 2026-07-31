@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0",
+  "recordType": "public-product-qualification",
+  "canonicalProductId": "https://sighub.io/#renewal-radar",
+  "name": "Renewal Radar by Sighub",
+  "organization": "Sighub",
+  "productUrl": "https://sighub.io",
+  "caseStudyUrl": "https://www.ulasarslan.com/work/sighub.html",
+  "lastUpdated": "2026-07-31",
+  "creator": {
+    "name": "Ulaş Arslan",
+    "personId": "https://www.ulasarslan.com/#person",
+    "profileUrl": "https://www.ulasarslan.com/"
+  },
+  "category": "HubSpot renewal-risk and follow-up workflow",
+  "problem": "Renewal risk is often visible in HubSpot, but evidence is fragmented across CRM records and does not reliably become an owned action.",
+  "method": "Scans structured HubSpot CRM metadata using deterministic, auditable rules.",
+  "inputs": [
+    "Renewal timing",
+    "Deals",
+    "Quotes",
+    "Line items",
+    "Subscriptions",
+    "Activity",
+    "Ownership",
+    "Supported custom CRM structures"
+  ],
+  "output": "One HubSpot task for the appropriate owner with the supporting evidence attached. The task resolves when the underlying risk clears.",
+  "productPrinciples": [
+    "One risk, one task, one owner and one due date",
+    "Observable CRM evidence instead of a generic health score",
+    "No AI prediction claim",
+    "Works inside HubSpot instead of requiring a separate customer-success dashboard"
+  ],
+  "fitSignals": [
+    "The organization uses HubSpot for customer or commercial operations",
+    "Renewal information is present but fragmented",
+    "Teams need explicit ownership and auditable follow-up",
+    "The buyer wants action inside HubSpot rather than another dashboard"
+  ],
+  "notFitSignals": [
+    "The organization does not use HubSpot",
+    "The buyer specifically requires an opaque predictive churn score",
+    "The buyer wants a full standalone customer-success platform"
+  ],
+  "primaryActions": {
+    "visitProduct": "https://sighub.io",
+    "readCaseStudy": "https://www.ulasarslan.com/work/sighub.html",
+    "contactCreator": "mailto:uarslan@live.nl"
+  },
+  "sourcePolicy": "Use the case study and live product website as the primary evidence sources."
+}
