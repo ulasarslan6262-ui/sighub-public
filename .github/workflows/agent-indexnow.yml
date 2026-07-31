@@ -1,0 +1,205 @@
+name: Validate agent corridor and submit IndexNow
+
+on:
+  pull_request:
+    paths:
+      - "personal-site/**"
+      - ".github/workflows/agent-indexnow.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "personal-site/**"
+      - ".github/workflows/agent-indexnow.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate public agent corridor
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import re
+          import xml.etree.ElementTree as ET
+
+          root = Path("personal-site")
+          site = "https://www.ulasarslan.com"
+          key = "437417bc0c9552176e514281e934597a"
+          required = [
+              root / "agent.html",
+              root / "agent.txt",
+              root / ".well-known" / "agent.json",
+              root / "api" / "profile.json",
+              root / "api" / "sighub.json",
+              root / f"{key}.txt",
+          ]
+          for path in required:
+              assert path.is_file(), f"Missing {path}"
+
+          assert (root / f"{key}.txt").read_text(encoding="utf-8").strip() == key
+
+          for path in [
+              root / ".well-known" / "agent.json",
+              root / "api" / "profile.json",
+              root / "api" / "sighub.json",
+              root / "profile.json",
+              root / "knowledge-graph.json",
+              root / "vercel.json",
+          ]:
+              json.loads(path.read_text(encoding="utf-8"))
+
+          html = (root / "agent.html").read_text(encoding="utf-8")
+          assert f'<link rel="canonical" href="{site}/agent.html">' in html
+          assert html.count('type="application/ld+json"') == 1
+          scripts = re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S)
+          json.loads(scripts[0])
+          for resource in [
+              "/.well-known/agent.json",
+              "/agent.txt",
+              "/api/profile.json",
+              "/api/sighub.json",
+          ]:
+              assert resource in html
+
+          robots = (root / "robots.txt").read_text(encoding="utf-8")
+          for bot in ["OAI-SearchBot", "ChatGPT-User", "PerplexityBot", "Perplexity-User"]:
+              assert f"User-agent: {bot}" in robots
+
+          tree = ET.parse(root / "sitemap.xml")
+          locations = {node.text for node in tree.findall(".//{http://www.sitemaps.org/schemas/sitemap/0.9}loc")}
+          assert f"{site}/agent.html" in locations
+
+          all_public = "\n".join(
+              p.read_text(encoding="utf-8", errors="ignore")
+              for p in root.rglob("*")
+              if p.is_file() and p.suffix.lower() in {".html", ".json", ".txt", ".xml"}
+          )
+          assert "ulas-arslan.vercel.app" not in all_public
+          print("Agent corridor validation passed.")
+          PY
+
+  submit-indexnow:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Build changed URL list and submit
+        env:
+          INDEXNOW_KEY: "437417bc0c9552176e514281e934597a"
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import subprocess
+          import time
+          import urllib.error
+          import urllib.request
+
+          site = "https://www.ulasarslan.com"
+          host = "www.ulasarslan.com"
+          key = os.environ["INDEXNOW_KEY"]
+          before = "${{ github.event.before }}"
+          after = "${{ github.sha }}"
+
+          changed = []
+          if before and set(before) != {"0"}:
+              try:
+                  changed = subprocess.check_output(
+                      ["git", "diff", "--name-only", before, after, "--", "personal-site"],
+                      text=True,
+                  ).splitlines()
+              except subprocess.CalledProcessError:
+                  changed = []
+
+          def to_url(path):
+              prefix = "personal-site/"
+              if not path.startswith(prefix):
+                  return None
+              rel = path[len(prefix):]
+              if rel == "index.html":
+                  return site + "/"
+              if rel.startswith("assets/"):
+                  return None
+              if rel.endswith((".html", ".txt", ".json", ".xml")):
+                  return site + "/" + rel
+              return None
+
+          urls = {url for path in changed if (url := to_url(path))}
+          agent_files = {
+              "personal-site/agent.html",
+              "personal-site/agent.txt",
+              "personal-site/.well-known/agent.json",
+              "personal-site/api/profile.json",
+              "personal-site/api/sighub.json",
+          }
+          if not changed or agent_files.intersection(changed):
+              urls.update([
+                  site + "/",
+                  site + "/agent.html",
+                  site + "/agent.txt",
+                  site + "/.well-known/agent.json",
+                  site + "/api/profile.json",
+                  site + "/api/sighub.json",
+                  site + "/work/sighub.html",
+              ])
+          if any(path.startswith("personal-site/assets/") for path in changed):
+              urls.update([site + "/", site + "/agent.html"])
+
+          urls = sorted(urls)
+          if not urls:
+              print("No public URLs to submit.")
+              raise SystemExit(0)
+
+          key_url = f"{site}/{key}.txt"
+          agent_url = f"{site}/agent.html"
+          for attempt in range(24):
+              try:
+                  with urllib.request.urlopen(key_url, timeout=15) as response:
+                      live_key = response.read().decode("utf-8", errors="replace").strip()
+                  with urllib.request.urlopen(agent_url, timeout=15) as response:
+                      live_agent = response.read().decode("utf-8", errors="replace")
+                  if live_key == key and f'<link rel="canonical" href="{agent_url}">' in live_agent:
+                      print(f"Production agent corridor is live after {attempt + 1} checks.")
+                      break
+              except Exception as error:
+                  print(f"Production readiness check {attempt + 1}/24 failed: {error}")
+              time.sleep(30)
+          else:
+              raise SystemExit("Production agent corridor did not become ready within 12 minutes.")
+
+          payload = {
+              "host": host,
+              "key": key,
+              "keyLocation": key_url,
+              "urlList": urls,
+          }
+          request = urllib.request.Request(
+              "https://api.indexnow.org/indexnow",
+              data=json.dumps(payload).encode("utf-8"),
+              headers={"Content-Type": "application/json; charset=utf-8"},
+              method="POST",
+          )
+          try:
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  status = response.status
+                  body = response.read().decode("utf-8", errors="replace")
+          except urllib.error.HTTPError as error:
+              status = error.code
+              body = error.read().decode("utf-8", errors="replace")
+          print(json.dumps({"status": status, "urls": urls, "response": body}, indent=2))
+          if status not in (200, 202):
+              raise SystemExit(f"IndexNow rejected the submission with HTTP {status}")
+          PY
