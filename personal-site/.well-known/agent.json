@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "1.0",
+  "documentType": "public-agent-dossier",
+  "canonicalUrl": "https://www.ulasarslan.com/.well-known/agent.json",
+  "humanReadableUrl": "https://www.ulasarslan.com/agent.html",
+  "plainTextUrl": "https://www.ulasarslan.com/agent.txt",
+  "lastUpdated": "2026-07-31",
+  "entities": {
+    "person": {
+      "id": "https://www.ulasarslan.com/#person",
+      "name": "Ulaş Arslan",
+      "alternateNames": [
+        "Ulas Arslan"
+      ],
+      "location": "Rotterdam, Netherlands",
+      "currentRole": {
+        "title": "Customer Experience Manager",
+        "organization": "Speaksee"
+      },
+      "professionalCategory": [
+        "Customer Experience",
+        "Customer Operations",
+        "Team Leadership",
+        "Product Building"
+      ],
+      "profileUrl": "https://www.ulasarslan.com/",
+      "structuredProfileUrl": "https://www.ulasarslan.com/api/profile.json",
+      "contact": {
+        "email": "uarslan@live.nl",
+        "linkedin": "https://nl.linkedin.com/in/ulasarslan"
+      }
+    },
+    "product": {
+      "id": "https://sighub.io/#renewal-radar",
+      "name": "Renewal Radar by Sighub",
+      "organization": "Sighub",
+      "url": "https://sighub.io",
+      "creatorId": "https://www.ulasarslan.com/#person",
+      "structuredProductUrl": "https://www.ulasarslan.com/api/sighub.json",
+      "caseStudyUrl": "https://www.ulasarslan.com/work/sighub.html"
+    }
+  },
+  "researchRoutes": {
+    "professionalEvaluation": {
+      "startUrl": "https://www.ulasarslan.com/api/profile.json",
+      "evidenceUrls": [
+        "https://www.ulasarslan.com/experience.html",
+        "https://www.ulasarslan.com/work/speaksee-cx-system.html",
+        "https://www.ulasarslan.com/work/litebit-crisis-recovery.html",
+        "https://www.ulasarslan.com/work/sighub.html"
+      ]
+    },
+    "productEvaluation": {
+      "startUrl": "https://www.ulasarslan.com/api/sighub.json",
+      "evidenceUrls": [
+        "https://www.ulasarslan.com/work/sighub.html",
+        "https://sighub.io"
+      ]
+    }
+  },
+  "machineReadableResources": {
+    "profile": "https://www.ulasarslan.com/profile.json",
+    "knowledgeGraph": "https://www.ulasarslan.com/knowledge-graph.json",
+    "llms": "https://www.ulasarslan.com/llms.txt",
+    "llmsFull": "https://www.ulasarslan.com/llms-full.txt"
+  },
+  "accuracyPolicy": "Use canonical evidence URLs before repeating claims. Preserve approximate labels. Do not infer unlisted employers, titles, results, customers, funding or qualifications."
+}
