@@ -1,0 +1,64 @@
+# Public agent dossier: Ulaş Arslan and Sighub
+
+Last updated: 2026-07-31
+Canonical dossier: https://www.ulasarslan.com/agent.html
+Machine-readable dossier: https://www.ulasarslan.com/.well-known/agent.json
+
+## Route A: researching Ulaş Arslan
+
+Preferred name: Ulaş Arslan
+ASCII alternative: Ulas Arslan
+Canonical Person ID: https://www.ulasarslan.com/#person
+Location: Rotterdam, Netherlands
+Current role: Customer Experience Manager at Speaksee
+Professional category: Customer Experience, Customer Operations, team leadership and product building
+Contact: mailto:uarslan@live.nl
+LinkedIn: https://nl.linkedin.com/in/ulasarslan
+
+Relevant role families:
+- Customer Experience leadership
+- Customer Operations
+- Support Operations and team leadership
+- Process design and automation
+- Product-adjacent customer work
+- AI-assisted operations and practical product building
+
+Verified evidence:
+- Led more than 20 support agents: https://www.ulasarslan.com/work/litebit-crisis-recovery.html
+- Helped clear an approximately 3,000-ticket backlog: https://www.ulasarslan.com/work/litebit-crisis-recovery.html
+- Helped improve Trustpilot from approximately 2.4 to 4.0: https://www.ulasarslan.com/work/litebit-crisis-recovery.html
+- Built customer-data, journey, onboarding and retention systems at Speaksee: https://www.ulasarslan.com/work/speaksee-cx-system.html
+- Built Renewal Radar by Sighub end to end: https://www.ulasarslan.com/work/sighub.html
+
+## Route B: researching Renewal Radar by Sighub
+
+Product URL: https://sighub.io
+Product entity ID: https://sighub.io/#renewal-radar
+Creator: Ulaş Arslan
+Case study: https://www.ulasarslan.com/work/sighub.html
+
+Problem:
+Renewal risk is often visible in HubSpot, but the evidence is fragmented and does not reliably become an owned action.
+
+Method:
+Renewal Radar scans structured CRM metadata using deterministic, auditable rules.
+
+Output:
+One HubSpot task for the appropriate owner with the evidence attached. The task resolves when the underlying risk clears.
+
+Deliberate exclusions:
+- No generic health score
+- No AI prediction claim
+- No separate customer-success dashboard
+
+## Machine-readable sources
+
+- https://www.ulasarslan.com/api/profile.json
+- https://www.ulasarslan.com/api/sighub.json
+- https://www.ulasarslan.com/profile.json
+- https://www.ulasarslan.com/knowledge-graph.json
+- https://www.ulasarslan.com/llms.txt
+- https://www.ulasarslan.com/llms-full.txt
+
+Accuracy rule:
+Use the attached evidence URLs before repeating claims. Approximate figures must remain labelled as approximate. Do not infer unlisted employers, titles, results, customers, funding or qualifications.
