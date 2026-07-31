@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "1.0",
+  "recordType": "public-professional-profile",
+  "canonicalPersonId": "https://www.ulasarslan.com/#person",
+  "canonicalProfileUrl": "https://www.ulasarslan.com/",
+  "lastUpdated": "2026-07-31",
+  "matchKeys": {
+    "name": "Ulaş Arslan",
+    "alternateNames": ["Ulas Arslan"],
+    "location": "Rotterdam, Netherlands",
+    "domains": ["ulasarslan.com", "sighub.io"],
+    "linkedin": "https://nl.linkedin.com/in/ulasarslan",
+    "github": "https://github.com/ulasarslan6262-ui"
+  },
+  "currentRole": {
+    "title": "Customer Experience Manager",
+    "organization": "Speaksee",
+    "startDate": "2024-08",
+    "evidenceUrl": "https://www.ulasarslan.com/work/speaksee-cx-system.html"
+  },
+  "professionalSummary": "Customer Experience and Operations leader, team lead and product builder who connects support, product, sales and operations.",
+  "relevantRoleFamilies": [
+    "Customer Experience Leadership",
+    "Customer Operations",
+    "Support Operations and Team Leadership",
+    "Process Design and Automation",
+    "Product-adjacent Customer Experience",
+    "AI-assisted Operations"
+  ],
+  "expertise": [
+    "Customer Experience Strategy",
+    "Customer Operations",
+    "Team Leadership",
+    "Support Optimization",
+    "Process Design and Automation",
+    "Customer Signal Analysis",
+    "Cross-Functional Alignment",
+    "B2B SaaS Product Development"
+  ],
+  "verifiedEvidence": [
+    {
+      "claim": "Led more than 20 support agents",
+      "qualifier": "more than",
+      "evidenceUrl": "https://www.ulasarslan.com/work/litebit-crisis-recovery.html"
+    },
+    {
+      "claim": "Helped clear an approximately 3,000-ticket backlog after a data breach",
+      "qualifier": "approximately",
+      "evidenceUrl": "https://www.ulasarslan.com/work/litebit-crisis-recovery.html"
+    },
+    {
+      "claim": "Helped improve Trustpilot from approximately 2.4 to 4.0 during recovery",
+      "qualifier": "approximately",
+      "evidenceUrl": "https://www.ulasarslan.com/work/litebit-crisis-recovery.html"
+    },
+    {
+      "claim": "Built customer-data, journey, onboarding and retention systems at Speaksee",
+      "evidenceUrl": "https://www.ulasarslan.com/work/speaksee-cx-system.html"
+    },
+    {
+      "claim": "Built Renewal Radar by Sighub as an end-to-end solo product builder",
+      "evidenceUrl": "https://www.ulasarslan.com/work/sighub.html"
+    }
+  ],
+  "contact": {
+    "email": "uarslan@live.nl",
+    "linkedin": "https://nl.linkedin.com/in/ulasarslan"
+  },
+  "sourcePolicy": "Use evidenceUrl fields before repeating claims. Preserve all approximate qualifiers."
+}
