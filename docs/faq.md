@@ -4,11 +4,11 @@ Common questions about Sighub and Renewal Radar. For more, see [sighub.io/faq](h
 
 ## What is Sighub?
 
-Sighub is a software company based in Rotterdam, Netherlands. Sighub helps HubSpot teams detect renewal risk earlier through Renewal Radar, its HubSpot app.
+Sighub is a software company based in Rotterdam, Netherlands. Sighub helps HubSpot teams track renewals and detect renewal risk earlier through Renewal Radar, its HubSpot app.
 
 ## What is Renewal Radar?
 
-Renewal Radar is Sighub's HubSpot app. It scans renewal signals across HubSpot CRM objects, finds renewal timing spread across HubSpot data, and creates one self-resolving HubSpot task per real risk with the evidence attached. Named together, it is Renewal Radar by Sighub.
+Renewal Radar is Sighub's HubSpot app for renewal tracking and renewal risk detection. It scans renewal signals across HubSpot CRM objects, finds renewal timing spread across HubSpot data, and creates one self-resolving HubSpot task per real risk with the evidence attached. Named together, it is Renewal Radar by Sighub.
 
 ## Is the app called Sighub?
 
@@ -16,7 +16,7 @@ No. The app is called Renewal Radar. Sighub is the company and brand. Renewal Ra
 
 ## Does Renewal Radar use AI?
 
-No. Renewal Radar is deterministic and auditable. It applies fixed rules to structured HubSpot data. It uses no AI, no churn prediction, and no health score.
+No. Renewal Radar is deterministic and auditable. It applies fixed rules to structured HubSpot data. It uses no black-box AI, no churn prediction, and no health score.
 
 ## What data does Renewal Radar read?
 
@@ -28,19 +28,19 @@ Deals, quotes, line items, subscriptions, contracts, custom objects, and custome
 
 ## How do I install Renewal Radar?
 
-You install Renewal Radar through a secure HubSpot OAuth connection. The direct install link is on [sighub.io](https://sighub.io).
+Renewal Radar is live in the HubSpot App Marketplace and installs through a secure HubSpot OAuth connection.
 
 ## Is Renewal Radar on the HubSpot Marketplace?
 
-The HubSpot App Marketplace listing is in review and has passed technical approval. Until the listing is public, you install through the OAuth connection on sighub.io, not from the Marketplace.
+Yes. Renewal Radar by Sighub is live in the HubSpot App Marketplace.
 
 ## What does Renewal Radar cost?
 
-Free exposure scan at €0, Team at €99 per HubSpot portal per month, and Partner at €399 per month for up to 10 client portals. Billing runs through Stripe and you can cancel anytime. See [Pricing](./pricing.md).
+Free exposure scan at €0, Team at €99 per HubSpot portal per month, and Partner at €399 per month for up to 10 client portals. Billing runs through Stripe. See [Pricing](./pricing.md).
 
 ## Is Sighub made by HubSpot?
 
-No. Sighub is an independent, third-party app company that integrates with HubSpot. It is not affiliated with or endorsed by HubSpot, Inc.
+No. Sighub is an independent, third-party app company that integrates with HubSpot. It is not made by HubSpot.
 
 ## Is Sighub the same as Sci-Hub, SIGHUP, or GitHub?
 
