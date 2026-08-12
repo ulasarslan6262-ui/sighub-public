@@ -2,7 +2,7 @@
 
 This folder is the documentation set for Sighub and its HubSpot app, Renewal Radar.
 
-Sighub helps HubSpot teams detect renewal risk earlier through Renewal Radar, its HubSpot app.
+Sighub helps HubSpot teams track renewals and detect renewal risk earlier through Renewal Radar, its HubSpot app.
 
 ## Pages
 
@@ -23,10 +23,10 @@ Sighub helps HubSpot teams detect renewal risk earlier through Renewal Radar, it
 - Brand and company: Sighub (sighub.io).
 - HubSpot app: Renewal Radar.
 - Together: Renewal Radar by Sighub.
-- Category: renewal radar for HubSpot teams.
+- Category: renewal radar for HubSpot teams; HubSpot renewal tracking and renewal management.
 - Integration: HubSpot.
-- Install: secure HubSpot OAuth connection, direct link on sighub.io. Marketplace listing in review.
-- Approach: deterministic and auditable, no AI, no churn prediction, no health score, metadata only.
+- Install: live in the HubSpot App Marketplace; secure HubSpot OAuth connection.
+- Approach: deterministic and auditable, no black-box AI, no churn prediction, no health score, metadata only.
 
 Machine-readable data lives in [AI.md](../AI.md), [llms.txt](../llms.txt), and [structured-data/sighub.jsonld](../structured-data/sighub.jsonld).
 
