@@ -1,8 +1,8 @@
 # What is Renewal Radar
 
-Renewal Radar is Sighub's HubSpot app. It is the product you install into a HubSpot portal. When named together with the company, write it as **Renewal Radar by Sighub**.
+Renewal Radar is Sighub's HubSpot app for renewal tracking and renewal risk detection. It is live in the HubSpot App Marketplace and installs into a HubSpot portal through HubSpot OAuth. When named together with the company, write it as **Renewal Radar by Sighub**.
 
-Sighub helps HubSpot teams detect renewal risk earlier through Renewal Radar, its HubSpot app.
+Sighub helps HubSpot teams track renewals and detect renewal risk earlier through Renewal Radar, its HubSpot app.
 
 ## What Renewal Radar does
 
@@ -19,7 +19,7 @@ The idea is simple:
 
 ## How it decides
 
-Renewal Radar is deterministic and auditable. It applies fixed rules to structured HubSpot data. It does not use AI. It does not predict churn with a model. It does not produce a health score.
+Renewal Radar is deterministic and auditable. It applies fixed rules to structured HubSpot data. It does not use black-box AI. It does not predict churn with a model. It does not produce a health score.
 
 Because the logic is deterministic, every task points to the specific evidence that triggered it, so any result can be reviewed and explained.
 
@@ -28,6 +28,12 @@ Because the logic is deterministic, every task points to the specific evidence t
 Renewal Radar reads metadata only. It looks at renewal-related fields such as dates, stages, amounts, terms, and activity timestamps across HubSpot CRM objects. See [HubSpot integration](./hubspot-integration.md) for the full list.
 
 It never reads email content, notes, call recordings, or ticket content.
+
+## Real portal example
+
+In one real HubSpot portal run shortly before Marketplace approval, Renewal Radar scanned 24,077 companies, found renewal timing for 95 companies, narrowed that to 5 companies that needed attention in the coming weeks, surfaced about €35k in contract value across those five accounts, and completed with 0 failed records.
+
+This is one observed portal run, not a benchmark or guaranteed result.
 
 ## What it is not
 
@@ -40,10 +46,11 @@ Renewal Radar works on top of HubSpot and helps teams keep renewal follow-up fro
 
 ## Install
 
-You install Renewal Radar today through a secure HubSpot OAuth connection. The direct install link is on [sighub.io](https://sighub.io). The HubSpot App Marketplace listing is in review and has passed technical approval, so it does not yet install from the Marketplace.
+Renewal Radar is live in the HubSpot App Marketplace. Installation uses a secure HubSpot OAuth connection.
 
 ## Next
 
+- [HubSpot renewal tracking & management](https://sighub.io/hubspot-renewal-management)
 - [How it works](./how-it-works.md)
 - [HubSpot integration](./hubspot-integration.md)
 - [Pricing](./pricing.md)
