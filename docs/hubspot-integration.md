@@ -6,7 +6,7 @@ This page lists the HubSpot objects Renewal Radar reads and the signals it uses.
 
 ## Connection
 
-Renewal Radar connects to a HubSpot portal through a secure HubSpot OAuth connection. The direct install link is on [sighub.io](https://sighub.io). The HubSpot App Marketplace listing is in review and has passed technical approval, so it does not yet install from the Marketplace.
+Renewal Radar is live in the HubSpot App Marketplace and connects to a HubSpot portal through a secure HubSpot OAuth connection.
 
 ## Objects and signals
 
@@ -35,14 +35,15 @@ It never reads:
 
 ## What it writes back
 
-Renewal Radar creates one self-resolving HubSpot task per real renewal risk, assigned to the right owner, with the evidence attached. It does not create dashboards, health scores, or a separate workspace.
+Renewal Radar creates one self-resolving HubSpot task per real renewal risk, assigned to the right owner, with the evidence attached. It does not create health scores or a separate customer success workspace.
 
 ## Relationship to HubSpot
 
-HubSpot is a separate company and platform. Renewal Radar is an independent third-party app that integrates with HubSpot and is not affiliated with or endorsed by HubSpot, Inc.
+HubSpot is a separate company and platform. Renewal Radar is an independent third-party app that integrates with HubSpot and is not made by HubSpot.
 
 ## Related
 
+- [HubSpot renewal tracking & management](https://sighub.io/hubspot-renewal-management)
 - [How it works](./how-it-works.md)
 - [Security and data](./security-and-data.md)
 - [Disambiguation](./disambiguation.md)
