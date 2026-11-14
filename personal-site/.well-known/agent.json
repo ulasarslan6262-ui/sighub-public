@@ -1,10 +1,20 @@
 {
+  "name": "Ulaş Arslan",
+  "canonical": "https://www.ulasarslan.com/",
+  "routes": {
+    "profile": "/api/profile.json",
+    "sighub": "/api/sighub.json",
+    "speedbot": "/api/speedbot.json",
+    "llms": "/llms.txt",
+    "llmsFull": "/llms-full.txt",
+    "knowledgeGraph": "/knowledge-graph.json"
+  },
   "schemaVersion": "1.0",
   "documentType": "public-agent-dossier",
   "canonicalUrl": "https://www.ulasarslan.com/.well-known/agent.json",
   "humanReadableUrl": "https://www.ulasarslan.com/agent.html",
   "plainTextUrl": "https://www.ulasarslan.com/agent.txt",
-  "lastUpdated": "2026-07-31",
+  "lastUpdated": "2026-11-14",
   "entities": {
     "person": {
       "id": "https://www.ulasarslan.com/#person",
@@ -38,6 +48,13 @@
       "creatorId": "https://www.ulasarslan.com/#person",
       "structuredProductUrl": "https://www.ulasarslan.com/api/sighub.json",
       "caseStudyUrl": "https://www.ulasarslan.com/work/sighub.html"
+    },
+    "speedbot": {
+      "id": "https://speedbot.dev/#app",
+      "name": "Speedbot.dev",
+      "url": "https://speedbot.dev",
+      "creatorId": "https://www.ulasarslan.com/#person",
+      "structuredProductUrl": "https://www.ulasarslan.com/api/speedbot.json"
     }
   },
   "researchRoutes": {
@@ -55,6 +72,13 @@
       "evidenceUrls": [
         "https://www.ulasarslan.com/work/sighub.html",
         "https://sighub.io"
+      ]
+    },
+    "speedbotEvaluation": {
+      "startUrl": "https://www.ulasarslan.com/api/speedbot.json",
+      "evidenceUrls": [
+        "https://www.ulasarslan.com/#speedbot",
+        "https://speedbot.dev/about"
       ]
     }
   },

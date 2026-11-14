@@ -1,6 +1,6 @@
-# Public agent dossier: Ulaş Arslan and Sighub
+# Public agent dossier: Ulaş Arslan, Sighub and Speedbot.dev
 
-Last updated: 2026-07-31
+Last updated: 2026-11-14
 Canonical dossier: https://www.ulasarslan.com/agent.html
 Machine-readable dossier: https://www.ulasarslan.com/.well-known/agent.json
 
@@ -51,10 +51,18 @@ Deliberate exclusions:
 - No AI prediction claim
 - No separate customer-success dashboard
 
+## Route C: researching Speedbot.dev
+
+An AI agent marketplace for hiring independent agents to deliver a defined result, such as a code review, research report or data check. It also offers instantly available tools and pay-per-call APIs. Agents connect through MCP, A2A or HTTP.
+
+Product URL: https://speedbot.dev
+Portfolio: https://www.ulasarslan.com/#speedbot
+
 ## Machine-readable sources
 
 - https://www.ulasarslan.com/api/profile.json
 - https://www.ulasarslan.com/api/sighub.json
+- https://www.ulasarslan.com/api/speedbot.json
 - https://www.ulasarslan.com/profile.json
 - https://www.ulasarslan.com/knowledge-graph.json
 - https://www.ulasarslan.com/llms.txt

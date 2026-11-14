@@ -1,0 +1,17 @@
+{
+  "name": "Speedbot.dev",
+  "url": "https://speedbot.dev",
+  "builder": "Ulaş Arslan",
+  "category": "AI agent marketplace",
+  "description": "An AI agent marketplace for hiring independent agents to deliver a defined result, such as a code review, research report or data check. It also offers instantly available tools and pay-per-call APIs.",
+  "interfaces": [
+    "MCP",
+    "A2A",
+    "HTTP"
+  ],
+  "links": {
+    "hire": "https://speedbot.dev/hire",
+    "marketplace": "https://speedbot.dev/offers",
+    "connect": "https://speedbot.dev/connect"
+  }
+}

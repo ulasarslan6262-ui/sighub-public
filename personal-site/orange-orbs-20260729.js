@@ -1,24 +1,26 @@
-const canvas=document.querySelector('canvas#experience');
+const canvas = document.querySelector('#ambient-particles');
 if(canvas){
-  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const mobile=window.matchMedia('(max-width:720px)').matches;
+  const motion = matchMedia('(min-width: 721px) and (prefers-reduced-motion: no-preference)');
   (async()=>{
     try{
-      const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.min.js');
-      const renderer=new THREE.WebGLRenderer({canvas,antialias:!mobile,alpha:true,powerPreference:'high-performance'});
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,mobile?1.15:1.5));
+      const context = canvas.getContext('webgl2', { alpha: true, antialias: true, powerPreference: 'low-power' });
+      if (!context) return;
+
+      const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.min.js');
+      const renderer = new THREE.WebGLRenderer({ canvas, context, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.35));
       renderer.setSize(window.innerWidth,window.innerHeight);
       renderer.outputColorSpace=THREE.SRGBColorSpace;
       renderer.toneMapping=THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure=1.18;
       const scene=new THREE.Scene();
-      scene.fog=new THREE.FogExp2(0x070808,mobile?.072:.052);
+      scene.fog=new THREE.FogExp2(0x070808,.058);
       const camera=new THREE.PerspectiveCamera(42,window.innerWidth/window.innerHeight,.1,100);
-      camera.position.set(0,0,mobile?12.8:10.5);
+      camera.position.set(0,0,10.5);
       const group=new THREE.Group();
-      group.position.x=mobile?1.1:2.7;
+      group.position.x=2.7;
       scene.add(group);
-      const count=mobile?260:680;
+      const count=540;
       const positions=new Float32Array(count*3);
       const targets=new Float32Array(count*3);
       const seeds=new Float32Array(count*3);
@@ -33,12 +35,12 @@ if(canvas){
       targets.set(positions);
       const geometry=new THREE.BufferGeometry();
       geometry.setAttribute('position',new THREE.BufferAttribute(positions,3));
-      const material=new THREE.PointsMaterial({color:0xff6b2c,size:mobile?.072:.058,transparent:true,opacity:mobile?.74:.82,depthWrite:false,blending:THREE.AdditiveBlending,sizeAttenuation:true});
+      const material=new THREE.PointsMaterial({color:0xff6b2c,size:.058,transparent:true,opacity:.78,depthWrite:false,blending:THREE.AdditiveBlending,sizeAttenuation:true});
       const particles=new THREE.Points(geometry,material);
       group.add(particles);
       const glowGeometry=new THREE.BufferGeometry();
       glowGeometry.setAttribute('position',new THREE.BufferAttribute(positions.slice(),3));
-      const glowMaterial=new THREE.PointsMaterial({color:0xff3f08,size:mobile?.16:.13,transparent:true,opacity:.11,depthWrite:false,blending:THREE.AdditiveBlending,sizeAttenuation:true});
+      const glowMaterial=new THREE.PointsMaterial({color:0xff3f08,size:.13,transparent:true,opacity:.11,depthWrite:false,blending:THREE.AdditiveBlending,sizeAttenuation:true});
       const glow=new THREE.Points(glowGeometry,glowMaterial);
       group.add(glow);
       const setPoint=(arr,i,x,y,z)=>{arr[i*3]=x;arr[i*3+1]=y;arr[i*3+2]=z};
@@ -68,13 +70,14 @@ if(canvas){
       document.querySelectorAll('[data-state]').forEach(el=>observer.observe(el));
       const pointer={x:0,y:0,tx:0,ty:0};
       window.addEventListener('pointermove',e=>{pointer.tx=e.clientX/window.innerWidth*2-1;pointer.ty=-(e.clientY/window.innerHeight*2-1)},{passive:true});
-      const clock=new THREE.Clock();
-      const render=()=>{
-        const elapsed=clock.getElapsedTime();
+      let frame = null;
+      let contextLost = false;
+      const render = (time) => {
+        const elapsed = time / 1000;
         const attr=geometry.attributes.position,arr=attr.array;
         const glowArr=glowGeometry.attributes.position.array;
         for(let i=0;i<count;i++){
-          const o=i*3,drift=reduced?0:Math.sin(elapsed*.48+i*.037)*.006;
+          const o=i*3,drift=Math.sin(elapsed*.48+i*.037)*.006;
           arr[o]+=(targets[o]+drift-arr[o])*.03;
           arr[o+1]+=(targets[o+1]-arr[o+1])*.03;
           arr[o+2]+=(targets[o+2]-arr[o+2])*.03;
@@ -84,18 +87,39 @@ if(canvas){
         pointer.x+=(pointer.tx-pointer.x)*.035;pointer.y+=(pointer.ty-pointer.y)*.035;
         group.rotation.y+=(pointer.x*.09-group.rotation.y)*.025;
         group.rotation.x+=(-pointer.y*.055-group.rotation.x)*.025;
-        if(!reduced){group.rotation.z+=.00025;material.opacity=.76+Math.sin(elapsed*1.3)*.07;}
+        group.rotation.z += .00018;
+        material.opacity = .75 + Math.sin(elapsed * 1.3) * .04;
         renderer.render(scene,camera);
-        if(!reduced)requestAnimationFrame(render);
+        frame = requestAnimationFrame(render);
       };
-      document.documentElement.classList.add('orbs-ready');
-      render();
-      window.addEventListener('resize',()=>{
-        const isMobile=window.innerWidth<720;
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,isMobile?1.15:1.5));
-        renderer.setSize(window.innerWidth,window.innerHeight);
-        camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();
-        group.position.x=isMobile?1.1:2.7;
+      const syncRendering = () => {
+        if (!motion.matches || document.hidden || contextLost) {
+          cancelAnimationFrame(frame);
+          frame = null;
+          document.documentElement.classList.remove('orbs-ready');
+        } else if (frame === null) {
+          document.documentElement.classList.add('orbs-ready');
+          frame = requestAnimationFrame(render);
+        }
+      };
+
+      canvas.addEventListener('webglcontextlost', () => {
+        contextLost = true;
+        syncRendering();
+      });
+      canvas.addEventListener('webglcontextrestored', () => {
+        contextLost = false;
+        syncRendering();
+      });
+      document.addEventListener('visibilitychange', syncRendering);
+      motion.addEventListener('change', syncRendering);
+      syncRendering();
+
+      window.addEventListener('resize', () => {
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.35));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
       });
     }catch(error){console.warn('Orange orb background unavailable',error)}
   })();
