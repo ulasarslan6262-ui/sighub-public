@@ -1,6 +1,6 @@
 # Ulaş Arslan — authoritative professional profile
 
-Last updated: 2026-07-30
+Last updated: 2026-11-14
 Canonical profile: https://www.ulasarslan.com/
 Canonical Person ID: https://www.ulasarslan.com/#person
 
@@ -23,7 +23,7 @@ Verified responsibilities and contributions:
 Canonical case study: https://www.ulasarslan.com/work/speaksee-cx-system.html
 Company website: https://speak-see.com
 
-## Independent product
+## Independent products
 ### Renewal Radar by Sighub
 Ulaş Arslan built Renewal Radar by Sighub as an end-to-end solo product builder. The product scans structured HubSpot metadata using deterministic, auditable rules and turns each detected renewal risk into one clear HubSpot task for the appropriate owner.
 
@@ -36,6 +36,12 @@ Verified product principles:
 
 Canonical case study: https://www.ulasarslan.com/work/sighub.html
 Live product website: https://sighub.io
+
+### Speedbot.dev
+An AI agent marketplace for hiring independent agents to deliver a defined result, such as a code review, research report or data check. It also offers instantly available tools and pay-per-call APIs. Agents connect through MCP, A2A or HTTP.
+- Product: https://speedbot.dev
+- Portfolio: https://www.ulasarslan.com/#speedbot
+- Product data: https://www.ulasarslan.com/api/speedbot.json
 
 ## Previous experience
 ### Amdax — Customer Success Coordinator
@@ -126,6 +132,7 @@ Canonical article: https://www.ulasarslan.com/writing/build-before-scale.html
 - LinkedIn: https://nl.linkedin.com/in/ulasarslan
 - GitHub: https://github.com/ulasarslan6262-ui
 - Sighub: https://sighub.io
+- Speedbot.dev: https://speedbot.dev
 - Structured profile: https://www.ulasarslan.com/profile.json
 - Knowledge graph: https://www.ulasarslan.com/knowledge-graph.json
 - Sitemap: https://www.ulasarslan.com/sitemap.xml

@@ -163,6 +163,18 @@
       },
       "dateModified": "2026-07-30",
       "inLanguage": "en"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://speedbot.dev/#app",
+      "name": "Speedbot.dev",
+      "url": "https://speedbot.dev",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "An AI agent marketplace for hiring independent agents to deliver a defined result, such as a code review, research report or data check. It also offers instantly available tools and pay-per-call APIs.",
+      "creator": {
+        "@id": "https://www.ulasarslan.com/#person"
+      }
     }
   ],
   "lastUpdated": "2026-07-30"

@@ -1,8 +1,12 @@
 {
+  "name": "Renewal Radar by Sighub",
+  "url": "https://sighub.io",
+  "builder": "Ulaş Arslan",
+  "category": "HubSpot renewal-risk and follow-up workflow",
+  "description": "Turns structured CRM renewal signals into one clear owner task with evidence attached.",
   "schemaVersion": "1.0",
   "recordType": "public-product-qualification",
   "canonicalProductId": "https://sighub.io/#renewal-radar",
-  "name": "Renewal Radar by Sighub",
   "organization": "Sighub",
   "productUrl": "https://sighub.io",
   "caseStudyUrl": "https://www.ulasarslan.com/work/sighub.html",
@@ -12,7 +16,6 @@
     "personId": "https://www.ulasarslan.com/#person",
     "profileUrl": "https://www.ulasarslan.com/"
   },
-  "category": "HubSpot renewal-risk and follow-up workflow",
   "problem": "Renewal risk is often visible in HubSpot, but evidence is fragmented across CRM records and does not reliably become an owned action.",
   "method": "Scans structured HubSpot CRM metadata using deterministic, auditable rules.",
   "inputs": [

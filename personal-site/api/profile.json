@@ -1,22 +1,55 @@
 {
+  "name": "Ulaş Arslan",
+  "alternateName": "Ulas Arslan",
+  "location": "Rotterdam, Netherlands",
+  "currentRole": {
+    "title": "Customer Experience Manager",
+    "organization": "Speaksee",
+    "url": "https://speak-see.com",
+    "startDate": "2024-08",
+    "evidenceUrl": "https://www.ulasarslan.com/work/speaksee-cx-system.html"
+  },
+  "summary": "Customer Experience and Operations leader, team lead and product builder who turns customer signals into scalable systems, clearer decisions and practical software.",
+  "products": [
+    {
+      "name": "Renewal Radar by Sighub",
+      "url": "https://sighub.io",
+      "caseStudy": "https://www.ulasarslan.com/work/sighub.html",
+      "description": "HubSpot renewal decision layer."
+    },
+    {
+      "name": "Speedbot.dev",
+      "url": "https://speedbot.dev",
+      "description": "An AI agent marketplace for hiring independent agents to deliver a defined result, such as a code review, research report or data check. It also offers instantly available tools and pay-per-call APIs.",
+      "evidenceUrl": "https://www.ulasarslan.com/#speedbot"
+    }
+  ],
+  "evidence": {
+    "agentsLed": "20+",
+    "ticketBacklogCleared": "~3,000",
+    "trustpilotRecovery": "~2.4 to 4.0",
+    "serviceDepartmentsHelpedLaunch": 2
+  },
+  "canonical": "https://www.ulasarslan.com/",
+  "updated": "2026-11-14",
   "schemaVersion": "1.0",
   "recordType": "public-professional-profile",
   "canonicalPersonId": "https://www.ulasarslan.com/#person",
   "canonicalProfileUrl": "https://www.ulasarslan.com/",
-  "lastUpdated": "2026-07-31",
+  "lastUpdated": "2026-11-14",
   "matchKeys": {
     "name": "Ulaş Arslan",
-    "alternateNames": ["Ulas Arslan"],
+    "alternateNames": [
+      "Ulas Arslan"
+    ],
     "location": "Rotterdam, Netherlands",
-    "domains": ["ulasarslan.com", "sighub.io"],
+    "domains": [
+      "ulasarslan.com",
+      "sighub.io",
+      "speedbot.dev"
+    ],
     "linkedin": "https://nl.linkedin.com/in/ulasarslan",
     "github": "https://github.com/ulasarslan6262-ui"
-  },
-  "currentRole": {
-    "title": "Customer Experience Manager",
-    "organization": "Speaksee",
-    "startDate": "2024-08",
-    "evidenceUrl": "https://www.ulasarslan.com/work/speaksee-cx-system.html"
   },
   "professionalSummary": "Customer Experience and Operations leader, team lead and product builder who connects support, product, sales and operations.",
   "relevantRoleFamilies": [
